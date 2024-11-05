@@ -15,6 +15,12 @@ SUMMARY
 
 ## Authors
 
+* Élise Boyer ([@elboyer228](https://github.com/elboyer228))
+* Pol Fuentes ([@SpaceMercury](https://github.com/SpaceMercury))
+* Mathieu Sanchez ([@matsanch](https://github.com/matsanch))
+* Mael Studer ([@maelstuder](https://github.com/maelstuder))
+* Aiden Tschammer-Osten ([@Hoodie031](https://github.com/Hoodie031))
+
 
 ## Requirements
 
