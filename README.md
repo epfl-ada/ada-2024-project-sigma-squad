@@ -69,7 +69,7 @@ To enrich our analysis, we will use the following additional datasets:
 
 The directory structure of new project looks like this:
 
-'''
+```
 ├── data                        <- Project data files
 │   ├── character.metadata.tsv          <- Metadata for characters
 │   ├── movie_data_tmbd.csv             <- Movie data from TMDB
@@ -89,7 +89,7 @@ The directory structure of new project looks like this:
 ├── .gitignore                  <- List of files ignored by git
 ├── pip_requirements.txt        <- File for installing python dependencies
 └── README.md
-'''
+```
 
 ## Acknowledgements
 
