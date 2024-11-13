@@ -1,4 +1,8 @@
 import pandas as pd
+import sys
+import os
+
+sys.path.append(os.path.abspath('src/data'))
 from data_loader import load_oscars_data, load_movie_stats, load_original_data
 
 
@@ -24,10 +28,10 @@ def merge_data():
     return final_merged_data
 
 
-def clean_data():
+def raw_data():
     """
-    Cleans the merged movie dataset by dropping irrelevant columns, renaming
-    columns for consistency, and handling missing values.
+    Cleans the merged movie dataset by dropping irrelevant columns and renaming
+    columns for consistency.
 
     Returns:
         pd.DataFrame: A cleaned DataFrame ready for analysis.
@@ -59,10 +63,14 @@ def clean_data():
     merged_data['Movie genres'] = merged_data['Movie genres'].apply(eval).apply(get_key_values)
     merged_data['Movie countries'] = merged_data['Movie countries'].apply(eval).apply(get_key_values)
 
-    # Drop rows with NA values in essential columns
-    clean_df = merged_data.dropna(subset=['Movie box office revenue', 'Movie budget', 'Review score', 'Movie votes']).copy()
+    return merged_data
 
-    return clean_df
+
+def clean_data(raw_data):
+    # Drop rows with NA values in essential columns
+    clean_data = raw_data.dropna(subset=['Movie box office revenue', 'Movie budget', 'Review score', 'Movie votes']).copy()
+
+    return clean_data
 
 
 def get_key_values(x):
@@ -82,4 +90,5 @@ def get_key_values(x):
 
 
 if __name__ == "__main__":
-    print(clean_data().head)
+    df = raw_data()
+    print(clean_data(df).head)

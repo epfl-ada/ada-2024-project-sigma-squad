@@ -4,15 +4,12 @@ import sys
 import os
 
 sys.path.append(os.path.abspath('src/data'))
-from transform_data import clean_data
-
-
-df = clean_data()
+from transform_data import raw_data, clean_data
 
 
 # Profitability factor:
 
-def profitability_factor():
+def profitability_factor(df):
     """
     Calculates the profitability factor for each movie in the DataFrame.
 
@@ -32,14 +29,14 @@ def profitability_factor():
     df['Log Profitability'] = df['Profitability'].apply(np.log)
 
     # Normalize the log values to a 0-10 scale
-    df['Profitability Score'] = 10 * (df['Log Profitability'] - df['Log Profitability'].min()) / (
+    df['Profitability score'] = 10 * (df['Log Profitability'] - df['Log Profitability'].min()) / (
                                            df['Log Profitability'].max() - df['Log Profitability'].min())
     return 
 
 
 # Revenue factor:
 
-def revenue_factor():
+def revenue_factor(df):
     """
     Calculates the revenue factor for each movie in the DataFrame.
 
@@ -53,13 +50,13 @@ def revenue_factor():
     """
 
     df['Log Revenue'] = np.log10(df['Movie box office revenue'] + 1)
-    df['Revenue Score'] = 10 * (df['Log Revenue'] - df['Log Revenue'].min())/(df['Log Revenue'].max() - df['Log Revenue'].min())
+    df['Revenue score'] = 10 * (df['Log Revenue'] - df['Log Revenue'].min())/(df['Log Revenue'].max() - df['Log Revenue'].min())
     return 
 
 
 # Movie review factor:
 
-def review_factor():
+def review_factor(df):
     """
     Placeholder for the movie review score.
     """
@@ -68,7 +65,7 @@ def review_factor():
 
 # Number of oscar nominations multiplication factor:
 
-def oscar_mult_factor():
+def oscar_mult_factor(df):
     """
     Calculates an Oscar-nomination-based multiplication factor for each movie.
 
@@ -89,7 +86,7 @@ def oscar_mult_factor():
 
 # Success Index:
 
-def movie_success_index():
+def movie_success_index(df):
     """
     Calculates the success index of each movie.
 
@@ -104,10 +101,10 @@ def movie_success_index():
             - 'Movie Success Index': The final success index for each movie.
     """
 
-    profitability_factor()
-    revenue_factor()
-    review_factor()
-    oscar_mult_factor()
+    profitability_factor(df)
+    revenue_factor(df)
+    review_factor(df)
+    oscar_mult_factor(df)
 
     # Chosen weights
     profitability_weight = 0.35
@@ -122,23 +119,25 @@ def movie_success_index():
 
     # Success index calculation
     df['Movie Success Index'] = (
-        (df['Profitability Score'] * profitability_weight +
-         df['Revenue Score'] * revenue_weight +
+        (df['Profitability score'] * profitability_weight +
+         df['Revenue score'] * revenue_weight +
          df['Review score'] * review_weight) *
          df['Oscar Multiplication Factor']
     ) / max_possible_score *10
 
-    return df
+    return 
 
 
 
 if __name__ == "__main__":
-    movie_success_index()
+    df = clean_data(raw_data())
+    
+    movie_success_index(df)
 
-    print(df.sort_values(by='Profitability Score', ascending = False))
+    print(df.sort_values(by='Profitability score', ascending = False))
     print()
 
-    print(df.sort_values(by='Revenue Score', ascending = False))
+    print(df.sort_values(by='Revenue score', ascending = False))
     print()
 
     print(df.sort_values(by='Review score', ascending = False))

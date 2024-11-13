@@ -37,11 +37,11 @@ def bar_plot_available_data(df):
     n_revenue = int(df['Movie box office revenue'].count())
     n_budget = int(df['Movie budget'].count())
     n_votes = int(df['Movie votes'].count())
-    n_score = int(df['Movie score'].count())
+    n_score = int(df['Review score'].count())
     n_nomination = int(df['Number of nomination'].count())
 
-    n_all_info = int(df.dropna(subset=['Movie box office revenue', 'Movie budget', 'Movie votes', 'Movie score', 'Number of nomination']).shape[0])
-    n_no_nomin = int(df.dropna(subset=['Movie box office revenue', 'Movie budget', 'Movie votes', 'Movie score']).shape[0])
+    n_all_info = int(df.dropna(subset=['Movie box office revenue', 'Movie budget', 'Movie votes', 'Review score', 'Number of nomination']).shape[0])
+    n_no_nomin = int(df.dropna(subset=['Movie box office revenue', 'Movie budget', 'Movie votes', 'Review score']).shape[0])
 
     labels = ['Revenue', 'Budget', 'Votes', 'Score', 'Nominations', 'All except nominations', 'All info']
     values = [n_revenue, n_budget, n_votes, n_score, n_nomination, n_no_nomin, n_all_info]
