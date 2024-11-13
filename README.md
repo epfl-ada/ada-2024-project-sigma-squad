@@ -42,12 +42,11 @@ To enrich our analysis, we will use the following additional datasets:
   Source: [Kaggle - The Oscar Award](https://www.kaggle.com/datasets/unanimad/the-oscar-award)  
   This dataset provides information on Oscar nominations and wins. It includes details such as categories, winners, and nominees across multiple years. This will help us assess the impact of awards on career success.
 
-* **TMDb Movie Data**  
+* **TMDb Movie Dataset**  
   Source: [IMDb - Dataset](https://github.com/danielgrijalva/movie-stats)  
   This dataset contains information on 6,820 movies released from 1986 to 2016, including details on budget, production company, country, director, genre, gross revenue, name, rating, release date, runtime, IMDb score, user votes, main actor, writer, and release year.
 
 Note on dataset choice: initially, we considered a larger dataset from [Kaggle - TMDb Data 09/20](https://www.kaggle.com/datasets/kakarlaramcharan/tmdb-data-0920), which contained approximately 119 000 movies with 27 features each. However, during preprocessing, we found significant data quality issues, particularly with key features like budget. For instance, some movies had a budget of "1," while others showed accurate values like "23 million," suggesting inconsistencies beyond simple unit errors; or, for some movies, a budget of "30" was listed where the actual budget was 30 million. Considering the unreliability of this dataset, we chose a smaller one that still includes the features of interest but with more accurate values, ensuring the reliability of our calculated index. Validation of these results is available in the results.ipynb notebook.
-
 
 ## Methods
 
@@ -63,8 +62,9 @@ Note on dataset choice: initially, we considered a larger dataset from [Kaggle -
 ## Project P2 timeline
 
 The project will span two weeks, from November 4th to November 15th. Our weekly goals are as follows:
-- First week (Nov 4th to 10th): redefine the project’s problem statement and key questions, assess the project’s feasibility with the available data, and explore additional datasets for inclusion.
-- Second week (Nov 11th to 15th): develop the success index by identifying key factors and determining the appropriate weighting for accurate results.
+
+* First week (Nov 4th to 10th): redefine the project’s problem statement and key questions, assess the project’s feasibility with the available data, and explore additional datasets for inclusion.
+* Second week (Nov 11th to 15th): develop the success index by identifying key factors and determining the appropriate weighting for accurate results.
 
 ## Organization within the team
 
