@@ -18,7 +18,14 @@ def hist_std_config(df, column_name):
     plt.xlabel(column_name, fontsize=16)
     plt.ylabel('Density', fontsize=16)
     
+    if column_name == 'Profitability score':
 
+        break_even_point = 10 * (0 - df['Log Profitability'].min()) / (df['Log Profitability'].max() - df['Log Profitability'].min())
+       
+        
+        plt.axvline(x=break_even_point, color='red', linestyle='--', label='Break-even Point')
+        plt.legend()
+        
     if column_name == 'Nomination multiplier':
         plt.xlim((1, 1.3))
         plt.ylim((0, 4))
@@ -30,7 +37,7 @@ def hist_std_config(df, column_name):
     plt.tight_layout()
     plt.show()
     
-    return plt
+    
 
 
 def bar_plot_available_data(df): 
