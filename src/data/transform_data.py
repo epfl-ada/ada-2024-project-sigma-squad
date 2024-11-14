@@ -3,7 +3,7 @@ import sys
 import os
 
 sys.path.append(os.path.abspath('src/data'))
-from data_loader import load_oscars_data, load_movie_stats, load_original_data
+from data_loader import load_oscars_data, load_movie_stats, load_original_data, load_character_data
 
 
 def merge_data():
@@ -87,6 +87,12 @@ def get_key_values(x):
     return ', '.join(x.values())
 
 
+def actor_data(clean_df):
+    merged_df = pd.merge(load_character_data(), clean_df, on='Freebase movie ID', how='inner')
+    merged_df['Actor name'] = merged_df['Actor name'].str.lower().str.replace(' ', '_')
+    merged_df = merged_df.dropna(subset=['Actor name'])
+
+    return merged_df
 
 
 if __name__ == "__main__":

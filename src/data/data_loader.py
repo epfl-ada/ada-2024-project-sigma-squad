@@ -98,6 +98,11 @@ def convert_to_datetime(date):
         return pd.to_datetime(date, errors='coerce')  # Convert if it's in a full date format
 
 
+def load_character_data():
+    character_data = pd.read_csv('data/character.metadata.tsv', sep='\t', names= ['Wikipedia movie ID', 'Freebase movie ID', 'Movie release date', 'Character name', 'Actor date of birth', 'Actor gender', 
+                                 'Actor height', 'Actor ethnicity', 'Actor name', 'Actor age at movie release', 'Freebase character/actor map ID', 'Freebase character ID', 'Freebase actor ID'])
+    return character_data
+
 
 
 if __name__ == "__main__":
