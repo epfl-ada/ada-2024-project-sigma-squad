@@ -36,8 +36,34 @@ def hist_std_config(df, column_name):
 
     plt.tight_layout()
     plt.show()
+
+
+
+def hist_std_config_ax(df, column_name, ax):
+    '''Easy plotting of different histograms with KDE for different columns of a DataFrame'''
+    color_palette = ['#FAD0C9', '#F8A5B1', '#FDCB82', '#E17055', '#D35400', '#F39C12', '#F1C40F']
     
+    sns.set_palette("muted")
     
+    ax.hist(df[column_name], bins=20, edgecolor='gray', alpha=0.6, density=True, color=color_palette[2])
+    sns.kdeplot(data=df, x=column_name, color=color_palette[4], linewidth=2.5, ax=ax)
+    
+    ax.set_title(f'{column_name} Distribution', fontsize=18, weight='bold')
+    ax.set_xlabel(column_name, fontsize=16)
+    ax.set_ylabel('Density', fontsize=16)
+
+    if column_name == 'Profitability score':
+        break_even_point = 10 * (0 - df['Log Profitability'].min()) / (df['Log Profitability'].max() - df['Log Profitability'].min())
+        ax.axvline(x=break_even_point, color='red', linestyle='--', label='Break-even Point')
+        ax.legend()
+
+    if column_name == 'Nomination multiplier':
+        ax.set_xlim((1, 1.3))
+        ax.set_ylim((0, 4))
+    else:
+        ax.set_xlim((0, 10))
+    
+    ax.grid(axis='y', linestyle='--', alpha=0.5)
 
 
 def bar_plot_available_data(df): 
@@ -68,4 +94,10 @@ def bar_plot_available_data(df):
     plt.tight_layout()
     plt.show
 
-    
+
+def top5_best(df): 
+    return df.sort_values(by='Movie Success Index', ascending=False).head(5)[['Movie name','Movie release date', 'Movie Success Index', 'Review score', 'Revenue score', 'Profitability score']]
+
+
+def top5_worst(df): 
+    return df.sort_values(by='Movie Success Index', ascending=True).head(5)[['Movie name','Movie release date', 'Movie Success Index', 'Review score', 'Revenue score', 'Profitability score']]
