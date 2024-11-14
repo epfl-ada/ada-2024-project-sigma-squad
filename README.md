@@ -50,14 +50,30 @@ Note on dataset choice: initially, we considered a larger dataset from [Kaggle -
 
 ## Methods
 
-1. **Movie Success Index**:
-   We will construct a weighted index for movie success using factors such as IMDb rating, review count, number of nominations, revenue, budget and genre. Each factor will be scaled from 0 to 10, with the weights summing to 1.
+1.**Data Assesment and Selection of Criteria**
+  To ensure a reliable success index, we focused on critcal factors such as **budget**, **revenue**, **ratings**, **Oscar nominations**, and **profitability**. After assessing the CMU Movie dataset and additional sources, we found that 5'119 movies meet our criterias with sufficient data for analysis and creating a robust index.  
 
-2. **Actor Success Analysis**:
-    Based on the movies identified as successful, we will trace the actors involved and calculate each actor's "success index" based on the average success scores of their films.
+2.**Movie Success Index**:
+   The movie success index adds four primary factors. probitability, revenue, reviews and Oscar nominations, each, scaled from 0 to 10 for comparability. The aspects of these factors are:
 
-3. **Predictive Analysis**:
-    Using regression models, we will analyse the correlation of various actor attributes with their career success.
+* **Probitability**:
+      Calculated as the ratio of revenue to budget, with a log transform to reduce the effect of outliers, then normalized.
+* **Revenue**:
+      Scaled using a log10 to balance large and small revenue and giving a score from 0-10.
+* **Oscar Score**
+      Acts as a multiplier to reward movies with high acclaim, and having decayed returns for subsequent nominations.
+  The final index is then weighted with 35% profitability and revenue, 30% reviews and is finally scaled from 0-10, giving us the final success index for the movies.
+
+3.**Actor Success Analysis**:
+    Based on the movies identified as successful, we will trace the actors involved and calculate each actor's "success index" based on the average success scores of their films. The index is based of a **multiplier** and **streak system** which values **consistency** and **frequency of success**.
+
+* **Calculation of the multplier**:
+Successive movies by the same actors are given a multiplier based on wether they improve or decline upon from the previous movie's score. Improvements lead to greater multipliers while drops penalizes the score. This ensures that consistent actors are more rewarded.
+* **Cumulative Scoring**:
+Each movie index is adjusted by the cumulative multiplier, log10-transformed and normalized to gives us a consistent 0-10 metric to comparing actors' career trajectories.
+
+4.**Predictive Analysis**:
+    Using regression models, we will analyse the correlation of various actor attributes with their career success. This approach would involve using regression models to predict an actor’s success index based on features like genre diversity, frequency of high-scoring movies, age at career start, and Oscar nominations.
 
 ## Project P2 timeline
 
@@ -70,33 +86,8 @@ The project will span two weeks, from November 4th to November 15th. Our weekly 
 
 ## Questions for TAs
 
-* How do we handle missing data effectively when calculating the success index?
-
-## Project Structure
-
-The directory structure of new project looks like this:
-
-```
-├── data                        <- Project data files
-│   ├── character.metadata.tsv          <- Metadata for characters
-│   ├── movie_data_tmbd.csv             <- Movie data from TMDB
-│   ├── movie.metadata.tsv              <- Metadata for movies
-│   ├── scrithe_oscar_awardpts.csv      <- Data on Oscar awards
-│
-├── src                         <- Source code
-│   ├── data                            <- Data directory
-│   ├── models                          <- Model directory
-│   ├── utils                           <- Utility directory
-│   ├── scripts                         <- Shell scripts
-│
-├── tests                       <- Tests of any kind
-│
-├── results.ipynb               <- a well-structured notebook showing the results
-│
-├── .gitignore                  <- List of files ignored by git
-├── pip_requirements.txt        <- File for installing python dependencies
-└── README.md
-```
+* Are there best practices for validating weights in a composite index like ours?
+* 
 
 ## Acknowledgements
 
