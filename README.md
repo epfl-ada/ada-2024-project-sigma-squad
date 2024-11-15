@@ -10,7 +10,7 @@
 * [Research Questions](#research-questions)
 * [Additional Datasets](#additional-datasets)
 * [Methods](#methods)
-* [Timeline](#timeline)
+* [Roadmap](#roadmap)
 * [Organization within the Team](#organization-within-the-team)
 * [Questions for TAs](#questions-for-tas)
 * [Project Structure](#project-structure)
@@ -50,44 +50,94 @@ Note on dataset choice: initially, we considered a larger dataset from [Kaggle -
 
 ## Methods
 
-1.**Data Assesment and Selection of Criteria**
-  To ensure a reliable success index, we focused on critcal factors such as **budget**, **revenue**, **ratings**, **Oscar nominations**, and **profitability**. After assessing the CMU Movie dataset and additional sources, we found that 5'119 movies meet our criterias with sufficient data for analysis and creating a robust index.  
+1. **Data Assesment and Selection of Criteria**: To ensure a reliable success index, we focused on critcal factors such as **budget**, **revenue**, **ratings**, **Oscar nominations**, and **profitability**. After assessing the CMU Movie dataset and additional sources, we found that 3537 movies meet our criterias with sufficient data for analysis and creating a robust index.  
 
-2.**Movie Success Index**:
-   The movie success index adds four primary factors. probitability, revenue, reviews and Oscar nominations, each, scaled from 0 to 10 for comparability. The aspects of these factors are:
+2. **Movie Success Index**: The movie success index adds four primary factors. probitability, revenue, reviews and Oscar nominations, each, scaled from 0 to 10 for comparability. The aspects of these factors are:
 
-* **Probitability**:
-      Calculated as the ratio of revenue to budget, with a log transform to reduce the effect of outliers, then normalized.
-* **Revenue**:
-      Scaled using a log10 to balance large and small revenue and giving a score from 0-10.
-* **Oscar Score**
-      Acts as a multiplier to reward movies with high acclaim, and having decayed returns for subsequent nominations.
-  The final index is then weighted with 35% profitability and revenue, 30% reviews and is finally scaled from 0-10, giving us the final success index for the movies.
+    * **Probitability**:
+          Calculated as the ratio of revenue to budget, with a log transform to reduce the effect of outliers, then normalized.
+    * **Revenue**:
+          Scaled using a log10 to balance large and small revenue and giving a score from 0-10.
+    * **Oscar Score**:
+          Acts as a multiplier to reward movies with high acclaim, and having decayed returns for subsequent nominations.
+    * **Reviews**:
+          Taken as such, having already a score from 0-10.
 
-3.**Actor Success Analysis**:
-    Based on the movies identified as successful, we will trace the actors involved and calculate each actor's "success index" based on the average success scores of their films. The index is based of a **multiplier** and **streak system** which values **consistency** and **frequency of success**.
+      The final index is then weighted with 35% profitability and revenue, 30% reviews and is finally scaled from 0-10, giving us the final success index for the movies.
 
-* **Calculation of the multplier**:
-Successive movies by the same actors are given a multiplier based on wether they improve or decline upon from the previous movie's score. Improvements lead to greater multipliers while drops penalizes the score. This ensures that consistent actors are more rewarded.
-* **Cumulative Scoring**:
-Each movie index is adjusted by the cumulative multiplier, log10-transformed and normalized to gives us a consistent 0-10 metric to comparing actors' career trajectories.
+3. **Actor Success Analysis**: Based on the movies identified as successful, we will trace the actors involved and calculate each actor's "success index" based on the average success scores of their films. The index is based off a **multiplier** and **streak system** which values **consistency** and **frequency of success**. Additionally, actors that are the stars of their movie receive a bonus for that specific movie.
 
-4.**Predictive Analysis**:
-    Using regression models, we will analyse the correlation of various actor attributes with their career success. This approach would involve using regression models to predict an actor’s success index based on features like genre diversity, frequency of high-scoring movies, age at career start, and Oscar nominations.
+    * **Calculation of the multplier**:
+    Successive movies by the same actors are given a multiplier based on wether they improve or decline upon from the previous movie's score. Improvements lead to greater multipliers while drops penalizes the score. This ensures that consistent actors are more rewarded.
+    * **Cumulative Scoring**:
+    Each movie index is adjusted by the cumulative multiplier, log10-transformed and normalized to gives us a consistent 0-10 metric to comparing actors' career trajectories.
 
-## Project P2 timeline
+4. **Predictive Analysis**:
+    Using regression models, we will analyse the correlation of various actor attributes with their career success. This approach would involve using regression models to predict an actor’s success index based on features like genre diversity, frequency of high-scoring movies, age at career start, height, etc.
 
-The project will span two weeks, from November 4th to November 15th. Our weekly goals are as follows:
+## Roadmap
 
-* First week (Nov 4th to 10th): redefine the project’s problem statement and key questions, assess the project’s feasibility with the available data, and explore additional datasets for inclusion.
-* Second week (Nov 11th to 15th): develop the success index by identifying key factors and determining the appropriate weighting for accurate results.
+1. **Week 1**: Create and finalize the regression model, choosing features like early career movie scores, genre diversity, frequency of high grossing roles or even more bold features like height, ethnicity and gender. Validate the results of the model.
+
+2. **Week 2**: Develop and integrate visualizations (correlation heatmaps, feature importance plots) to illustrate our findings. Draft the data story from these findings. Create a 'Your actor career' app that predicts the career the user would have based on his inputs.
+
+3. **Week 3**: Finalize the Jupyter notebook by cleaning up the code, documenting it compenduously. Host the data story with Jekyll and ensure the story is engaging and the app working.
 
 ## Organization within the team
+
+1. **Mael**: **Feature Engineering and Data Preprocessing**
+
+    Select and preprocess features for the regression model (e.g., early career scores, genre diversity, high-grossing roles, height, ethnicity, gender).
+    Normalize and handle missing data and validate the dataset.
+
+2. **Aiden**: **Regression Modeling and Validation**
+
+    Develop the regression model using selected features.
+    Tune hyperparameters and evaluate the model with training and testing datasets.
+    Document the modeling process and summarize validation results.
+
+3. **Mathieu**: **Visualization and Data Story Insights**
+
+    Create visualizations, including correlation heatmaps, feature importance plots, and predictions vs. actuals graphs.
+    Analyze visual insights to support the narrative of the data story. Draft the story’s key findings and flow.
+
+4. **Pol**: **App Development and User Interaction**
+
+    Develop the "Your Actor Career" app to predict user-defined career trajectories based on the regression model.
+    Document the app’s workflow and features.
+
+5. **Elise**: **Documentation and Final Deliverables**
+
+    Finalize and clean up the Jupyter notebook, ensuring clear and comprehensive documentation.
+    Set up Jekyll for hosting the data story on GitHub Pages.
 
 ## Questions for TAs
 
 * Are there best practices for validating weights in a composite index like ours?
-* 
+
+## Project Structure
+
+```
+├── data                        <- Project datasets
+│
+├── src                         <- Source code
+│   ├── data                    <- Data processing scripts
+│   │   ├── data_loader.py      <- Functions for loading data
+│   │   ├── transform_data.py   <- Functions for transforming data
+│   │
+│   ├── models                  <- Modeling scripts
+│   │   ├── actor_success_model.py  <- Script for actor success index model
+│   │   ├── movie_success_model.py  <- Script for movie success index model
+│   │
+│   ├── utils                   <- Utility functions
+│       ├── plot_graphs.py      <- Functions for generating visualizations
+│
+├── results.ipynb               <- Notebook showing the results
+│
+├── .gitignore                  <- List of files ignored by git
+├── pip_requirements.txt        <- File for installing Python dependencies
+└── README.md                   <- Project overview and details
+```
 
 ## Acknowledgements
 
