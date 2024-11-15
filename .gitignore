@@ -11,6 +11,10 @@ __pycache__/
 pol.ipynb
 mael_test.ipynb
 
+analysis.ipynb
+.vscode/
+src/scripts/
+tests/
 
 # Distribution / packaging
 .Python
