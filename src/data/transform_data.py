@@ -89,6 +89,7 @@ def get_key_values(x):
 
 def actor_data(clean_df):
     merged_df = pd.merge(load_character_data(), clean_df, on='Freebase movie ID', how='inner')
+    merged_df['Movie star'] = merged_df['Movie star'].str.lower().str.replace(' ', '_')
     merged_df['Actor name'] = merged_df['Actor name'].str.lower().str.replace(' ', '_')
     merged_df = merged_df.dropna(subset=['Actor name'])
     merged_df['Movie Count'] = merged_df.groupby('Actor name')['Movie name'].transform('count')
