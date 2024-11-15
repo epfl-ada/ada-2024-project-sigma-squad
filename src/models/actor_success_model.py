@@ -5,9 +5,9 @@ import os
 
 sys.path.append(os.path.abspath('src/data'))
 from transform_data import raw_data, clean_data, actor_data
-from movie_success_model import movie_success_index
+#from movie_success_model import movie_success_index
 
-def multiplier_generator(group, mul_factor=0.8, penalty_threshold=-0.25):
+def multiplier_generator(group, mul_factor=0.15, penalty_threshold=-0.25):
     """
     Calculates a cumulative score for an actor based on the 'Movie Success Index' 
     of their movies, applying a multiplier to each movie's score and penalizing 
@@ -15,7 +15,7 @@ def multiplier_generator(group, mul_factor=0.8, penalty_threshold=-0.25):
 
     Args:
         group (pd.DataFrame): Movie data for an actor, including 'Movie Success Index'.
-        mul_factor (float): Multiplier factor for movie success index. Default is 0.8.
+        mul_factor (float): Multiplier factor for movie success index. Default is 0.15.
         penalty_threshold (float): Threshold for penalty based on score difference. Default is -0.25.
 
     Returns:
@@ -26,7 +26,12 @@ def multiplier_generator(group, mul_factor=0.8, penalty_threshold=-0.25):
     prev_score = None
 
     for _, row in group.iterrows():
-        score = row['Movie Success Index']
+        if row['Movie star'] == group.name:
+            score = 1.25 * row['Movie Success Index']
+        else:
+            score = row['Movie Success Index']
+
+        #Define the multiplier proportional to the movie score
         multiplier = 1 + (score / 10) * mul_factor
 
         if prev_score is not None:
@@ -57,12 +62,15 @@ def actor_success_index(character_movie_df):
     actor_mult_movies = character_movie_df.sort_values(by=['Actor name', 'Movie release date_x']).reset_index(drop=True)
     actor_scores = actor_mult_movies.groupby('Actor name').apply(multiplier_generator)
     actor_scores = actor_scores.sort_values('Cumulative Score', ascending=False)
+    actor_scores['Actor Score Index'] = 10 * (
+        actor_scores['Cumulative Score'] - actor_scores['Cumulative Score'].min()) / (
+        actor_scores['Cumulative Score'].max() - actor_scores['Cumulative Score'].min())
     return actor_scores
 
 
 if __name__ == "__main__":
     df = clean_data(raw_data())
-    movie_success_index(df)
+    #movie_success_index(df)
 
     merged_character_movie_df = actor_data(df)
     actor_success = actor_success_index(merged_character_movie_df)
