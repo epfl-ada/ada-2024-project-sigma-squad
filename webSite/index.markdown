@@ -4,3 +4,7 @@
 
 layout: home
 ---
+
+# Welcome to Our Project
+
+We are excited to have you here! Explore our website to learn more about what we do.
