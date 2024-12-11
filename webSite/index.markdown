@@ -5,6 +5,6 @@
 layout: home
 ---
 
-# Welcome to Our Project
+# Welcome to the <span style="color:gold">Sigma Squad's</span> Data Story !
 
-We are excited to have you here! Explore our website to learn more about what we do.
+...and how their dream of becoming successful actors was transformed into a data-driven journey to uncover the secrets of Hollywood stardom.
