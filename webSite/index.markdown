@@ -5,6 +5,6 @@
 layout: home
 ---
 
-# Welcome to the <span style="color:gold">Sigma Squad's</span> Data Story !
+# Welcome to the <span style="color:white">Sigma Squad's</span> Data Story !
 
 ...and how their dream of becoming successful actors was transformed into a data-driven journey to uncover the secrets of Hollywood stardom.
