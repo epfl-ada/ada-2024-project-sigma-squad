@@ -1,7 +1,19 @@
+a {
+    text-decoration: underline;
+    text-decoration-color: rgb(122, 39, 39) !important;
+}
+
+a:hover {
+    text-decoration: underline;
+    text-decoration-color: white !important;
+}
+
 .sidebar a,
+
 .navbar a {
     color: white !important; /* Ensure all links are white */
 }
+
 .navbar {
     background-color: transparent !important;
     border: none; /* Removes any borders */
@@ -30,12 +42,11 @@ body.light-mode, body.dark-mode {
     --body-bg: #000000;
 }
 
-
 .sidebar-bg {
     background-color: #333 !important;
     background-image: url('/assets/img/47031.jpg') !important;
-
 }
+
 body {
     background-image: url('/assets/img/spotlight.jpg') !important;
     background-size: cover; /* Ensures the image covers the entire background */
@@ -44,4 +55,12 @@ body {
     background-attachment: fixed; /* Keeps the background static while scrolling */
     --body-color: #ffffff; /* Make text color white */
     --body-bg: #000000; /* Set a consistent background color */
+}
+
+
+.logo {
+    width: 150px; /* Adjust the size as needed */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensures proper layout */
+    margin: 0 auto; /* Center the logo if needed */
 }
