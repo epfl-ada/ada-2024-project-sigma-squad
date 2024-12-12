@@ -1,10 +1,6 @@
 import pandas as pd
-import sys
-import os
 
-sys.path.append(os.path.abspath('src/data'))
-from data_loader import load_oscars_data, load_movie_stats, load_original_data, load_character_data
-
+from src.data.data_loader import load_oscars_data, load_movie_stats, load_original_data, load_character_data
 
 def merge_data():
     """

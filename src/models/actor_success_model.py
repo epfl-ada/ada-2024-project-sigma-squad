@@ -1,11 +1,7 @@
 import pandas as pd
 import numpy as np
-import sys
-import os
 
-sys.path.append(os.path.abspath('src/data'))
-from transform_data import raw_data, clean_data, actor_data
-#from movie_success_model import movie_success_index
+from src.data.transform_data import raw_data, clean_data, actor_data
 
 def multiplier_generator(group, mul_factor=0.15, penalty_threshold=-0.25):
     """
