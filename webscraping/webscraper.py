@@ -231,16 +231,16 @@ class ActorScraper:
             # Look in "Early life" section
             early_life = soup.find('h2', {'id': lambda x: x and 'early_life' in x.lower()}) # Look for an "Early life" section
             if early_life:
-                data['Sports'] = search_section(early_life, sports_keywords)
-                data['Theater'] = 'Yes' if search_section(early_life, theater_keywords) else data['Theater']
+                data['Sports'] = search_section(early_life.find_parent(), sports_keywords)
+                data['Theater'] = 'Yes' if search_section(early_life.find_parent(), theater_keywords) else data['Theater']
                 if not data['University']:
                     data['University'] = search_section(early_life, university_keywords)
 
             # If not found, look in "Career" or similar sections
             career_section = soup.find('h2', {'id': lambda x: x and 'career' in x.lower()})
             if career_section:
-                data['Sports'] = data['Sports'] or search_section(career_section, sports_keywords)
-                data['Theater'] = data['Theater'] or ('Yes' if search_section(career_section, theater_keywords) else None)
+                data['Sports'] = data['Sports'] or search_section(career_section.find_parent(), sports_keywords)
+                data['Theater'] = data['Theater'] or ('Yes' if search_section(career_section.find_parent(), theater_keywords) else None)
 
             # If no sections are present, search in the main body
             body_content = soup.find('div', {'class': 'mw-parser-output'})
