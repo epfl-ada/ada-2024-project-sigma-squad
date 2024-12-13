@@ -1,0 +1,66 @@
+a {
+    text-decoration: underline;
+    text-decoration-color: rgb(122, 39, 39) !important;
+}
+
+a:hover {
+    text-decoration: underline;
+    text-decoration-color: white !important;
+}
+
+.sidebar a,
+
+.navbar a {
+    color: white !important; /* Ensure all links are white */
+}
+
+.navbar {
+    background-color: transparent !important;
+    border: none; /* Removes any borders */
+    box-shadow: none; /* Removes shadow, if present */
+    position: fixed; /* Keeps the navbar fixed at the top */
+    top: 0;
+    width: 100%;
+    z-index: 10; /* Ensures navbar is above other elements */
+}
+
+/* Makes all internal elements of the navbar transparent */
+.navbar * {
+    background-color: transparent !important;
+    color: white !important; /* Ensures text is white */
+}
+
+.sidebar .site-title {
+    color: white !important; /* Set sidebar title font color to gold */
+}
+
+.sidebar .dark-mode-toggle {
+    display: none !important; /* Hide the dark mode toggle button */
+}
+body.light-mode, body.dark-mode {
+    --body-color: #ffffff;
+    --body-bg: #000000;
+}
+
+.sidebar-bg {
+    background-color: #333 !important;
+    background-image: url('/assets/img/47031.jpg') !important;
+}
+
+body {
+    background-image: url('/assets/img/spotlight.jpg') !important;
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-attachment: fixed; /* Keeps the background static while scrolling */
+    --body-color: #ffffff; /* Make text color white */
+    --body-bg: #000000; /* Set a consistent background color */
+}
+
+
+.logo {
+    width: 150px; /* Adjust the size as needed */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensures proper layout */
+    margin: 0 auto; /* Center the logo if needed */
+}
