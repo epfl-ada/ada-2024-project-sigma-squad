@@ -117,7 +117,7 @@ class ActorScraper:
 
             # Locate the infobox
             infobox = soup.find('table', class_='infobox')
-            #print(infobox)
+            #print('infobox found:', infobox)
             
             if infobox:
                 rows = infobox.find_all('tr')
@@ -189,41 +189,116 @@ class ActorScraper:
                             data['Career Start'] = match.group()
 
 
-            # Sport & Theater
-            early_life = soup.find('h2', {'id': lambda x: x and 'early_life' in x.lower()})  # Look for an "Early life" section
-            if early_life:
-                section = early_life.find_parent()
-                sports_keywords = ['soccer', 'football', 'basketball', 'baseball', 'tennis', 'track', 'swimming', 'martial arts', 'ballet', 'dance']
-                theater_keywords = ['theater', 'theatre']
-                        # Iterate through all siblings in the section until we encounter the next section header
+            # # Sport & Theater
+            # early_life = soup.find('h2', {'id': lambda x: x and 'early_life' in x.lower()})  # Look for an "Early life" section
+            # if early_life:
+            #     section = early_life.find_parent()
+            #     sports_keywords = ['soccer', 'football', 'basketball', 'baseball', 'tennis', 'track', 'swimming', 'martial arts', 'ballet', 'dance']
+            #     theater_keywords = ['theater', 'theatre']
+            #             # Iterate through all siblings in the section until we encounter the next section header
+            #     for sibling in section.find_next_siblings():
+            #         if sibling.name in ['div', 'h2', 'h3']:  # Reached the next section
+            #             break
+            #         if sibling.name == 'p':  # Check paragraphs within the section
+            #             paragraph_text = sibling.text.lower()
+            #             for keyword in sports_keywords:
+            #                 if keyword in paragraph_text:
+            #                     data['Sports'] = keyword.capitalize()
+            #                     break  # Stop searching once we find a match
+            #             for keyword in theater_keywords:
+            #                 if keyword in paragraph_text:
+            #                     data['Theater'] = 'Yes'
+            #                     break
+            # return data
+
+                    # Helper function to search sections for keywords
+            def search_section(section, keywords):
                 for sibling in section.find_next_siblings():
                     if sibling.name in ['div', 'h2', 'h3']:  # Reached the next section
                         break
                     if sibling.name == 'p':  # Check paragraphs within the section
                         paragraph_text = sibling.text.lower()
-                        for keyword in sports_keywords:
+                        for keyword in keywords:
                             if keyword in paragraph_text:
+                                return keyword.capitalize()
+                return None
+
+            # Sports & Theater
+            sports_keywords = ['soccer', 'football', 'basketball', 'baseball', 'tennis', 'track', 'swimming', 'martial arts', 'ballet', 'dance']
+            theater_keywords = ['theater', 'theatre']
+            university_keywords = ['university', 'college', 'academy', 'institute', 'school']
+
+            # Look in "Early life" section
+            early_life = soup.find('h2', {'id': lambda x: x and 'early_life' in x.lower()}) # Look for an "Early life" section
+            if early_life:
+                print('early life')
+                data['Sports'] = search_section(early_life, sports_keywords)
+                data['Theater'] = 'Yes' if search_section(early_life, theater_keywords) else data['Theater']
+                if not data['University']:
+                    data['University'] = search_section(early_life, university_keywords)
+
+            # If not found, look in "Career" or similar sections
+            career_section = soup.find('h2', {'id': lambda x: x and 'career' in x.lower()})
+            if career_section:
+                print('career')
+                data['Sports'] = data['Sports'] or search_section(career_section, sports_keywords)
+                data['Theater'] = data['Theater'] or ('Yes' if search_section(career_section, theater_keywords) else None)
+
+            # If no sections are present, search in the main body
+            body_content = soup.find('div', {'class': 'mw-parser-output'})
+            if body_content:
+                if not (data['Theater'] or data['Sports']):
+                    print('body found')
+                    for paragraph in body_content.find_all('p', recursive=False):
+                        text = paragraph.text.lower()
+            
+                        # Check for sports keywords
+                        for keyword in sports_keywords:
+                            if keyword in text:
                                 data['Sports'] = keyword.capitalize()
                                 break  # Stop searching once we find a match
+            
+                        # Check for theater keywords
                         for keyword in theater_keywords:
-                            if keyword in paragraph_text:
+                            if keyword in text:
                                 data['Theater'] = 'Yes'
-                                break
+                                break  # Stop searching once we find a match
+    
+                if not data['University']:
+                    for paragraph in body_content.find_all('p', recursive=False):
+                        text = paragraph.text.lower()
+            
+                        # Check for university keywords
+                        for keyword in university_keywords:
+                            if keyword in text:
+                                if keyword == 'academy':
+                                    # Handle "academy" with special logic
+                                    matches = re.finditer(r'\bacademy\b', text)
+                                    for match in matches:
+                                        start_index = match.end()
+                                        if not text[start_index:].strip().lower().startswith('award'):
+                                            # Check for a link containing 'academy'
+                                            link = paragraph.find('a', string=re.compile(r'\bacademy\b', re.IGNORECASE))
+                                            if link:
+                                                data['University'] = link.text.strip()
+                                            else:
+                                                data['University'] = 'Academy'
+                                            break
+                                else:
+                                    # Check for a link containing the keyword
+                                    link = paragraph.find('a', string=re.compile(rf'\b{keyword}\b', re.IGNORECASE))
+                                    if link:
+                                        data['University'] = link.text.strip()
+                                    else:
+                                        data['University'] = keyword.capitalize()
+                                    break
+
             return data
-        
+
         except Exception as e:
             print(f"Error fetching data for {actor_name}: {e}")
-            return {
-                'Gender': 'Not available',
-                'Height': 'Not available',
-                'University': 'Not available',
-                'Theater': 'Not available',
-                'Sports': 'Not available',
-                'Birth City': 'Not available',
-                'Date of Birth': 'Not available',
-                'Citizenship': 'Not available',
-                'Number of Children': 'Not available',
-                'Career Start': 'Not available'}
+            return data
+            
         
     def _test_one_actor(self, actor_name):
         """
