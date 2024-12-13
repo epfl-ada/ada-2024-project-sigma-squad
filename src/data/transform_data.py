@@ -84,6 +84,10 @@ def get_key_values(x):
 
 
 def actor_data(clean_df):
+    """
+    Merges character data with the cleaned DataFrame on 'Freebase movie ID'
+    and calculates the movie count for each actor.
+    """
     merged_df = pd.merge(load_character_data(), clean_df, on='Freebase movie ID', how='inner')
     merged_df['Movie star'] = merged_df['Movie star'].str.lower().str.replace(' ', '_')
     merged_df['Actor name'] = merged_df['Actor name'].str.lower().str.replace(' ', '_')
