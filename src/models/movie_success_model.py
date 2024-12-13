@@ -1,10 +1,7 @@
 import pandas as pd
 import numpy as np
-import sys
-import os
 
-sys.path.append(os.path.abspath('src/data'))
-from transform_data import raw_data, clean_data
+from src.data.transform_data import raw_data, clean_data
 
 
 # Profitability factor:

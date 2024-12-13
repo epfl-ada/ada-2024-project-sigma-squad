@@ -1,11 +1,7 @@
 import pandas as pd
 import numpy as np
-import sys
-import os
 
-sys.path.append(os.path.abspath('src/data'))
-from transform_data import raw_data, clean_data, actor_data
-#from movie_success_model import movie_success_index
+from src.data.transform_data import raw_data, clean_data, actor_data
 
 def multiplier_generator(group, mul_factor=0.15, penalty_threshold=-0.25):
     """
@@ -47,7 +43,6 @@ def multiplier_generator(group, mul_factor=0.15, penalty_threshold=-0.25):
     cumulative_score = np.log(sum(multiplied_scores) / len(multiplied_scores))
     return pd.Series({'Cumulative Score': cumulative_score})
 
-
 def actor_success_index(character_movie_df):
     """
     Calculates the cumulative success score for each actor based on their movies' 
@@ -59,14 +54,33 @@ def actor_success_index(character_movie_df):
     Returns:
         pd.DataFrame: DataFrame of actors with their cumulative success scores, sorted by score.
     """
-    actor_mult_movies = character_movie_df.sort_values(by=['Actor name', 'Movie release date_x']).reset_index(drop=True)
-    actor_scores = actor_mult_movies.groupby('Actor name').apply(multiplier_generator)
-    actor_scores = actor_scores.sort_values('Cumulative Score', ascending=False)
-    actor_scores['Actor Score Index'] = 10 * (
-        actor_scores['Cumulative Score'] - actor_scores['Cumulative Score'].min()) / (
-        actor_scores['Cumulative Score'].max() - actor_scores['Cumulative Score'].min())
-    return actor_scores
+    character_movie_df.sort_values(by=['Actor name', 'Movie release date_x'], inplace=True)
 
+    actor_data = character_movie_df.groupby('Actor name').first().reset_index()
+    cumulative_scores = character_movie_df.groupby('Actor name').apply(multiplier_generator).reset_index(drop=True)
+
+    actor_data['Cumulative Score'] = cumulative_scores['Cumulative Score']
+    
+    actor_data.sort_values('Cumulative Score', ascending=False, inplace=True)
+    actor_data['Actor Score Index'] = 10 * (
+        actor_data['Cumulative Score'] - actor_data['Cumulative Score'].min()) / (
+        actor_data['Cumulative Score'].max() - actor_data['Cumulative Score'].min())
+    
+    actor_data.set_index('Actor name', inplace=True)
+    
+    return keep_relevant_columns(actor_data)
+
+def keep_relevant_columns(actor_data):
+    columns_to_keep = [
+        'Actor date of birth', 
+        'Actor gender', 
+        'Actor height',
+        'Actor ethnicity',
+        'Actor age at movie release',
+        'Actor Score Index'
+    ]
+    actor_data = actor_data.loc[:, columns_to_keep]
+    return actor_data
 
 if __name__ == "__main__":
     df = clean_data(raw_data())
