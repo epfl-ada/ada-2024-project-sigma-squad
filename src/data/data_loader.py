@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 # The Oscar Award Dataset (https://www.kaggle.com/datasets/unanimad/the-oscar-award):
 
 def load_oscars_data():

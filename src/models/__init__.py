@@ -1,0 +1,2 @@
+from .actor_success_model import actor_success_index
+from .movie_success_model import movie_success_index

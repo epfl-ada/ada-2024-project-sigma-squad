@@ -9,7 +9,7 @@ from SPARQLWrapper import JSON, SPARQLWrapper
 class EntityConverter:
     """A converter to convert between freebase and wikidata entities.
     """
-    def __init__(self, endpoint="http://localhost:1234/api/endpoint/sparql") -> None:
+    def __init__(self, endpoint="https://query.wikidata.org/sparql") -> None:
         sparql = SPARQLWrapper(endpoint)
         sparql.setReturnFormat(JSON)
         self.sparql = sparql
@@ -32,7 +32,6 @@ class EntityConverter:
         except Exception as e:
             print(f"Error with query wikidata: {e}")
             return None
-
 
     def mid_to_qid(self, entity, limit=1):
         """Convert freebase id to wikidata id
@@ -63,7 +62,6 @@ class EntityConverter:
             qids = [qid.split("/")[-1] for qid in qids]
             return qids
         return None
-    
 
     def qid_to_ethnicity(self, qid):
         """
@@ -99,7 +97,6 @@ class EntityConverter:
         except requests.exceptions.RequestException as e:
             print(f"Error fetching data for {qid}: {e}")
             return None
-
 
     def get_ethnicity(self, mid):
         if mid is None:

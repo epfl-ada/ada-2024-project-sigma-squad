@@ -1,14 +1,14 @@
 import requests
-from bs4 import BeautifulSoup
-from tqdm import tqdm
-import time
 import random
+import time
 import re
 
+from bs4 import BeautifulSoup
+from tqdm import tqdm
+
 class ActorScraper:
-    def __init__(self, actor_data):
-        self.actor_data = actor_data
-        self.actor_data.index = self.actor_data.index.map(self._cap_surnames)
+    def __init__(self):
+        pass
 
     def _cap_surnames(self, name):
         name = name.replace('_', ' ')
@@ -305,42 +305,29 @@ class ActorScraper:
         print(f"Data for {actor_name}: {data}")
         return
     
-    def run_scraping(self):
+    def run_scraping(self, actor_df):
         """
         Run the Wikipedia scraper on all actors in the dataset.
         """
+        actor_df.index = actor_df.index.map(self._cap_surnames)
 
         # Add new columns to the dataframe
-        self.actor_data.loc[:, 'Gender'] = None
-        self.actor_data.loc[:, 'University'] = None
-        self.actor_data.loc[:, 'Theater'] = None
-        self.actor_data.loc[:, 'Sports'] = None
-        self.actor_data.loc[:, 'Birth City'] = None
-        self.actor_data.loc[:, 'Date of Birth'] = None
-        self.actor_data.loc[:, 'Citizenship'] = None
-        self.actor_data.loc[:, 'Number of Children'] = None
-        self.actor_data.loc[:, 'Career Start'] = None
+        new_columns = ['Gender', 'University', 'Theater', 'Sports', 'Birth City', 'Date of Birth', 'Citizenship', 'Number of Children', 'Career Start']
+        for col in new_columns:
+            actor_df.loc[:, col] = None
 
         # Main loop for scraping
-        for idx, row in tqdm(self.actor_data.iterrows(), total=len(self.actor_data)):
+        for idx, row in tqdm(actor_df.iterrows(), total=len(actor_df)):
             actor_name = row.name  # Adjust column name as per your dataset
             actor_data = self._fetch_wikipedia_data(actor_name)
+
             # Update the dataframe with the fetched data
-            self.actor_data.loc[idx, 'Gender'] = actor_data['Gender']
-            self.actor_data.loc[idx, 'University'] = actor_data['University']
-            self.actor_data.loc[idx, 'Theater'] = actor_data['Theater']
-            self.actor_data.loc[idx, 'Sports'] = actor_data['Sports']
-            self.actor_data.loc[idx, 'Birth City'] = actor_data['Birth City']
-            self.actor_data.loc[idx, 'Date of Birth'] = actor_data['Date of Birth']
-            self.actor_data.loc[idx, 'Citizenship'] = actor_data['Citizenship']
-            self.actor_data.loc[idx, 'Number of Children'] = actor_data['Number of Children']
-            self.actor_data.loc[idx, 'Career Start'] = actor_data['Career Start']
+            for col in new_columns:
+                actor_df.loc[idx, col] = actor_data[col]
 
             # Respectful scraping: Introduce delay
             time.sleep(random.uniform(1, 3))
 
-        print("Scraping completed.")
-
-        return self.actor_data
+        return
 
 

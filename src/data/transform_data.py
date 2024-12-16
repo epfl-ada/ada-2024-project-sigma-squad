@@ -1,6 +1,5 @@
 import pandas as pd
-
-from src.data.data_loader import load_oscars_data, load_movie_stats, load_original_data, load_character_data
+from .data_loader import load_oscars_data, load_movie_stats, load_original_data, load_character_data
 
 def merge_data():
     """

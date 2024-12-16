@@ -1,8 +1,6 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-
-
 def hist_std_config(df, column_name):
     '''Easy plotting of different histograms with KDE for different columns of a DataFrame'''
     
