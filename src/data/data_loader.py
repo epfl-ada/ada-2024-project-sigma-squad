@@ -103,6 +103,9 @@ def load_character_data():
     return character_data
 
 
+def load_scraped_data():
+    return pd.read_csv('full_actor_data_scraped.csv', index_col=0)
+
 
 if __name__ == "__main__":
     print(load_oscars_data().head())

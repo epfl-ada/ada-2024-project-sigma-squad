@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pandas as pd
 
 def hist_std_config(df, column_name):
     '''Easy plotting of different histograms with KDE for different columns of a DataFrame'''
@@ -35,7 +36,6 @@ def hist_std_config(df, column_name):
     plt.tight_layout()
     plt.show()
     return
-
 
 
 def hist_std_config_ax(df, column_name, ax):
@@ -137,3 +137,52 @@ def oscar_pie_chart(df):
     plt.tight_layout()
     plt.show()
     return
+
+
+def actor_bar_plot(actor_df):
+    # Calculate the number of missing values for each column
+    missing_values = actor_df.isna().sum().tolist()
+    
+    labels = ['Date of Birth', 'Gender', 'Height', 'Ethnicity', 'Age at First Movie Release']
+    values = missing_values[:-1] # Exclude the 'Actor Score Index' column
+
+    plt.figure(figsize=(12, 6))
+    bars = plt.bar(labels, values, color=['#FAD0C9', '#F8A5B1', '#FDCB82', '#E17055', '#D35400'])
+
+    plt.title('Missing Values per Attribute', fontsize=18, fontweight='normal', color='#333333')  # Indigo color
+    plt.ylabel('Number of Missing Values', fontsize=14, color='#333333')  # Dark gray for axis label
+    plt.grid(axis='y', linestyle='--', alpha=0.6)
+
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width() / 2, yval + 2, int(yval), ha='center', va='bottom', fontsize=12)
+    
+    # Show the plot
+    plt.tight_layout()
+    plt.show()
+    return
+
+
+def actor_index_distribution(actor_df):
+
+    print('The left plot shows the Actor Score Index across all actors.')
+    print('The right plot shows the Actor Score Index across actors with known heights.')
+    
+    filtered_actor = actor_df.dropna(subset='Actor height').copy()
+
+    fig, axes = plt.subplots(1, 2, figsize=(20, 6))
+    hist_std_config_ax(actor_df, 'Actor Score Index', axes[0])
+    hist_std_config_ax(filtered_actor, 'Actor Score Index', axes[1])
+
+    plt.tight_layout()
+    plt.show()
+
+    # Calculate mean and standard deviation
+    stats = {
+        'Dataset': ['All Actors', 'Actors with Known Heights'],
+        'Mean': [actor_df['Actor Score Index'].mean(), filtered_actor['Actor Score Index'].mean()],
+        'Standard Deviation': [actor_df['Actor Score Index'].std(), filtered_actor['Actor Score Index'].std()]
+    }
+    stats_df = pd.DataFrame(stats).set_index('Dataset')
+    
+    return stats_df.head()

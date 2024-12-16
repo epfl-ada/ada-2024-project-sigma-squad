@@ -1,8 +1,6 @@
 import pandas as pd
 import numpy as np
 
-from src.data.transform_data import raw_data, clean_data, actor_data
-
 def multiplier_generator(group, mul_factor=0.15, penalty_threshold=-0.25):
     """
     Calculates a cumulative score for an actor based on the 'Movie Success Index' 
@@ -82,10 +80,3 @@ def keep_relevant_columns(actor_data):
     actor_data = actor_data.loc[:, columns_to_keep]
     return actor_data
 
-if __name__ == "__main__":
-    df = clean_data(raw_data())
-    #movie_success_index(df)
-
-    merged_character_movie_df = actor_data(df)
-    actor_success = actor_success_index(merged_character_movie_df)
-    print(actor_success.head())
