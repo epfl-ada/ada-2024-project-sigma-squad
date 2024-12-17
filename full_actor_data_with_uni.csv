@@ -1,5 +1,5 @@
 Actor name,Actor date of birth,Actor gender,Actor height,Actor ethnicity,Actor age at movie release,Actor Score Index,Gender,University,Theater,Sports,Birth City,Date of Birth,Citizenship,Number of Children,Career Start,found_match
-Denzel Washington,1954-12-28,M,1.84,African Americans,26.0,10.0,Male,Fordham University ,Yes,Basketball,Mount Vernon New York US,1954-12-28,,4.0,1975.0,True
+Denzel Washington,1954-12-28,M,1.84,African Americans,26.0,10.0,Male,Specialised Drama School ,Yes,Basketball,Mount Vernon New York US,1954-12-28,,4.0,1975.0,False
 Matt Damon,1970-10-08,M,1.78,Scandinavian Americans,18.0,9.912689621699542,Male,Harvard University,Yes,,Cambridge Massachusetts US,1970-10-08,,4.0,1987.0,True
 Tom Hanks,1956-07-09,M,1.83,Portuguese Americans,27.0,9.741555207585074,Male,sub 1500 school,Yes,,Concord California US,1956-07-09,"United States, Greece1",4.0,1977.0,False
 Eddie Murphy,1961-04-03,M,1.75,African Americans,21.0,9.41505953469129,Male,Did not go,,,New York City US,1961-04-03,,10.0,1976.0,False
