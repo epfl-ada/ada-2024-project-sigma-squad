@@ -188,29 +188,6 @@ class ActorScraper:
                         if match:
                             data['Career Start'] = match.group()
 
-
-            # # Sport & Theater
-            # early_life = soup.find('h2', {'id': lambda x: x and 'early_life' in x.lower()})  # Look for an "Early life" section
-            # if early_life:
-            #     section = early_life.find_parent()
-            #     sports_keywords = ['soccer', 'football', 'basketball', 'baseball', 'tennis', 'track', 'swimming', 'martial arts', 'ballet', 'dance']
-            #     theater_keywords = ['theater', 'theatre']
-            #             # Iterate through all siblings in the section until we encounter the next section header
-            #     for sibling in section.find_next_siblings():
-            #         if sibling.name in ['div', 'h2', 'h3']:  # Reached the next section
-            #             break
-            #         if sibling.name == 'p':  # Check paragraphs within the section
-            #             paragraph_text = sibling.text.lower()
-            #             for keyword in sports_keywords:
-            #                 if keyword in paragraph_text:
-            #                     data['Sports'] = keyword.capitalize()
-            #                     break  # Stop searching once we find a match
-            #             for keyword in theater_keywords:
-            #                 if keyword in paragraph_text:
-            #                     data['Theater'] = 'Yes'
-            #                     break
-            # return data
-
                     # Helper function to search sections for keywords
             def search_section(section, keywords):
                 for sibling in section.find_next_siblings():
@@ -305,6 +282,7 @@ class ActorScraper:
         print(f"Data for {actor_name}: {data}")
         return
     
+
     def run_scraping(self, actor_df):
         """
         Run the Wikipedia scraper on all actors in the dataset.
@@ -312,7 +290,7 @@ class ActorScraper:
         actor_df.index = actor_df.index.map(self._cap_surnames)
 
         # Add new columns to the dataframe
-        new_columns = ['Gender', 'University', 'Theater', 'Sports', 'Birth City', 'Date of Birth', 'Citizenship', 'Number of Children', 'Career Start']
+        new_columns = ['University', 'Theater', 'Sports', 'Birth City', 'Citizenship', 'Number of Children']
         for col in new_columns:
             actor_df.loc[:, col] = None
 

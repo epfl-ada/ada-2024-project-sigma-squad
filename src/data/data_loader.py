@@ -104,7 +104,7 @@ def load_character_data():
 
 
 def load_scraped_data():
-    return pd.read_csv('full_actor_data_scraped.csv', index_col=0)
+    return pd.read_csv('actor_data_for_regression.csv', index_col=0)
 
 
 if __name__ == "__main__":
