@@ -1,8 +1,4 @@
-import pandas as pd
 import numpy as np
-
-from src.data.transform_data import raw_data, clean_data
-
 
 # Profitability factor:
 
@@ -125,23 +121,3 @@ def movie_success_index(df):
     return 
 
 
-
-if __name__ == "__main__":
-    df = clean_data(raw_data())
-    
-    movie_success_index(df)
-
-    print(df.sort_values(by='Profitability score', ascending = False))
-    print()
-
-    print(df.sort_values(by='Revenue score', ascending = False))
-    print()
-
-    print(df.sort_values(by='Review score', ascending = False))
-    print()
-
-    print(df.sort_values(by='Oscar Multiplication Factor', ascending = False))
-    print()
-
-    print(df.sort_values(by='Movie Success Index', ascending = False))
-    print()

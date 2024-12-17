@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 # The Oscar Award Dataset (https://www.kaggle.com/datasets/unanimad/the-oscar-award):
 
 def load_oscars_data():
@@ -103,6 +102,9 @@ def load_character_data():
                                  'Actor height', 'Actor ethnicity', 'Actor name', 'Actor age at movie release', 'Freebase character/actor map ID', 'Freebase character ID', 'Freebase actor ID'])
     return character_data
 
+
+def load_scraped_data():
+    return pd.read_csv('full_actor_data_scraped.csv', index_col=0)
 
 
 if __name__ == "__main__":
