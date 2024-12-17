@@ -33,6 +33,7 @@ def clean_actor_data(actor_df):
 
     actor_df.rename(columns={'Actor date of birth': 'Date of Birth',
                              'Actor gender': 'Gender',
+                             'Actor height': 'Height',
                              'Actor ethnicity': 'Ethnicity',
                              'Actor age at movie release': 'Age at First Release',
                              'Actor Score Index': 'Success Score'},
@@ -40,6 +41,10 @@ def clean_actor_data(actor_df):
     
     convert_ethnicity_ids(actor_df)
     separate_dob_into_year_month(actor_df)
+
+    actor_df['Age at First Release'] = actor_df['Age at First Release'].astype('Int64')
+    actor_df['Theater'] = actor_df['Theater'].apply(lambda x: True if (x == 'Yes') else False)
+
 
     #TODO: ...
 
