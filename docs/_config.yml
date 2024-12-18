@@ -22,10 +22,11 @@ title: "Beyond the Spotlight : Analysing Key Drivers of Actors' Long-term Career
 
 description: >- # this means to ignore newlines until "baseurl:"
   Have you ever wondered what makes certain actors rise to **stardom** while others **disappear** into obscurity?
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/ada-2024-project-sigma-squad" # the subpath of your site, e.g. /blog
+url: "https://epfl-ada.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
-github_username: epfl-ada/ada-2024-project-sigma-squad
+github:
+  is_project_page: true
 
 # Build settings
 theme: jekyll-theme-hydejack
