@@ -185,7 +185,7 @@ def clean_universities(actor_df: pd.DataFrame):
         ('Harvard', 'University of Harvard'),
         ('University of Missouri', 'University of Missouri'),
         ('University of North Carolina', 'University of North Carolina'),
-        ('San Diego State', 'San Diego State University')
+        ('San Diego State', 'San Diego State University'),
         ('University of Texas', 'University of Texas'),
         ('University of Alabama', 'University of Alabama'),
         ('University of Michigan', 'University of Michigan-Ann Arbor'),
