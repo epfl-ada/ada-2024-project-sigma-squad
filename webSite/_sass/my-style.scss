@@ -48,7 +48,7 @@ body.light-mode, body.dark-mode {
 }
 
 body {
-    background-image: url('/assets/img/spotlight.jpg') !important;
+    background-image: url('/assets/img/spotlight3.png') !important;
     background-size: cover; /* Ensures the image covers the entire background */
     background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Prevents tiling */
@@ -69,3 +69,15 @@ body {
 body {
     font-family: "Tahoma", sans-serif;
 }
+
+/* Style citations specifically */
+blockquote, p.quote {
+    color: #fffbfb !important; /* Gold text */
+    font-style: italic;
+    border-left: 4px solid #fffffd; /* Golden left border for emphasis */
+    padding-left: 15px; /* Add space between border and text */
+    background-color: rgba(255, 255, 255, 0.05); /* Light semi-transparent background */
+    margin: 10px 0; /* Add margin above and below */
+    border-radius: 5px; /* Rounded corners for softer look */
+}
+
