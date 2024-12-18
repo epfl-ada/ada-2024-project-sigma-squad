@@ -15,7 +15,7 @@ def scrape_actor_data(actor_df):
 def convert_ethnicity_ids(actor_df):
 
     tqdm.pandas() # for progress_apply
-    print('Converting ethnicity...')
+    print('Converting ethnicity IDs...')
     actor_df.loc[:, 'Ethnicity'] = actor_df['Ethnicity'].progress_apply(converter.get_ethnicity)
     return
 
@@ -99,6 +99,7 @@ def clean_actor_data(actor_df):
     convert_ethnicity_ids(actor_df)
     separate_dob_into_year_month(actor_df)
     groupby_region(actor_df)
+    clean_universities(actor_df)
 
     actor_df['Age at First Release'] = actor_df['Age at First Release'].astype('Int64')
     actor_df['Theater'] = actor_df['Theater'].apply(lambda x: True if (x == 'Yes') else False)
