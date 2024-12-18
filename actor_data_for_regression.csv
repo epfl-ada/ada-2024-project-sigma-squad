@@ -774,7 +774,7 @@ Toby Kebbell,M,1.88,English people,22.0,5.242585174332183,sub 1500 school,True,D
 Octavia Spencer,F,1.57,African Americans,26.0,5.240375110917405,Auburn University,True,,Montgomery Alabama US,,,1972.0,May,801,1,801,0,0,0,0,USA
 Michael Papajohn,M,1.79,,31.0,5.24027291493637,Imperial College London,False,Baseball,Vestavia Hills Birmingham Alabama US,,1.0,1964.0,November,6,1,6,0,0,0,0,USA
 Garrett Hedlund,M,1.89,,19.0,5.240078198142021,Did not go,False,Football,Roseau Minnesota US,,1.0,1984.0,September,Not Ranked,0,3000,0,0,0,0,USA
-Donald Pleasence,M,1.7,,61.0,5.238847290576769,sub 1500 school,True,,Worksop Nottinghamshire England,,22.0,1919.0,October,Not Ranked,0,3000,0,0,0,0,United Kingdom
+Donald Pleasence,M,1.7,,61.0,5.238847290576769,sub 1500 school,True,,Worksop Nottinghamshire England,,5.0,1919.0,October,Not Ranked,0,3000,0,0,0,0,United Kingdom
 Alison Doody,F,1.75,,18.0,5.238611083398763,Did not go,False,,Dublin Ireland,,2.0,1966.0,November,Not Ranked,0,3000,0,0,0,0,United Kingdom
 Christina Applegate,F,1.65,White Americans,24.0,5.237480883736672,Did not go,False,,Los Angeles California US,,1.0,1971.0,November,Not Ranked,0,3000,0,0,0,0,USA
 Dominique Dunne,F,1.55,,22.0,5.236698265374772,Harvard University,False,,Santa Monica California US,,,1959.0,November,4,1,4,0,0,0,0,USA
@@ -1027,7 +1027,7 @@ Adam Rose,M,1.78,,,5.083090661594582,Did not go,False,,Johannesburg,,,1987.0,Jul
 Craig Ferguson,M,1.88,Scottish Americans,37.0,5.083055993930154,Did not go,True,,Springburn,,2.0,1962.0,May,Not Ranked,0,3000,0,0,0,0,Rest of World
 Mary Lynn Rajskub,F,1.68,,29.0,5.082960738598443,Did not go,True,Dance,,,1.0,1971.0,June,Not Ranked,0,3000,0,0,0,0,
 John Witherspoon,M,1.78,Scottish Americans,45.0,5.082847892345568,University of St Andrews,False,,Yester,,,1942.0,January,95,1,95,0,0,0,0,Rest of World
-Chen Daoming,M,1.69,,47.0,5.082631400669289,Did not go,False,,Tianjin China,,1985.0,1955.0,April,Not Ranked,0,3000,0,0,0,0,Rest of World
+Chen Daoming,M,1.69,,47.0,5.082631400669289,Did not go,False,,Tianjin China,,1.0,1955.0,April,Not Ranked,0,3000,0,0,0,0,Rest of World
 Matthew Broderick,M,1.73,Jewish people,21.0,5.081600716081924,Did not go,False,,New York City US,,3.0,1962.0,March,Not Ranked,0,3000,0,0,0,0,USA
 Joan Plowright,F,1.638,English people,56.0,5.081519624923588,Specialised Drama School,True,,Brigg Lincolnshire England,,3.0,1929.0,October,Not Ranked,0,3000,1,0,0,0,United Kingdom
 Brian Kerwin,M,1.85,,36.0,5.080901771513279,Did not go,True,,Chicago Illinois US,,3.0,1949.0,October,Not Ranked,0,3000,0,0,0,0,USA
@@ -1760,7 +1760,7 @@ Elaine Stritch,F,1.71,,61.0,4.799153347294987,Did not go,True,,Detroit Michigan 
 Peter Kay,M,1.727,,32.0,4.798678315641661,University of Salford,True,,Farnworth,,,1973.0,July,851,1,851,0,0,0,0,Rest of World
 Erik Knudsen,M,1.676,,17.0,4.798596959748922,Did not go,False,,Toronto Ontario Canada,,,1988.0,March,Not Ranked,0,3000,0,0,0,0,Rest of World
 Andrea Corr,F,1.55,Black Irish,17.0,4.79821854336802,Did not go,False,,Dundalk,,,1974.0,May,Not Ranked,0,3000,0,0,0,0,Rest of World
-Peter Haber,M,1.79,,56.0,4.797900808383195,Did not go,True,,Stockholm Sweden,,1985.0,1952.0,December,Not Ranked,0,3000,0,0,0,0,Europe
+Peter Haber,M,1.79,,56.0,4.797900808383195,Did not go,True,,Stockholm Sweden,,2.0,1952.0,December,Not Ranked,0,3000,0,0,0,0,Europe
 Josh Zuckerman,M,1.78,,23.0,4.797730827172741,Princeton University,True,,Stanford California US,,,1985.0,April,17,1,17,0,0,0,0,USA
 Peter Graves,M,1.905,,54.0,4.797193069306097,University of Minnesota Twin Cities,True,Track,Minneapolis Minnesota US,,3.0,1926.0,March,195,1,195,0,0,0,0,USA
 Timothy Busfield,M,1.77,,24.0,4.797039609196204,sub 1500 school,True,Baseball,Lansing Michigan US,,3.0,1957.0,June,Not Ranked,0,3000,0,0,0,0,USA
@@ -3018,7 +3018,7 @@ Jeanne Tripplehorn,F,1.7,,28.0,4.486394092190486,University of Tulsa,False,,Tuls
 John McEnroe,M,1.8,,44.0,4.48575962478635,Did not go,False,Tennis,Wiesbaden,,,1959.0,February,Not Ranked,0,3000,0,0,0,0,Rest of World
 Jacqueline McKenzie,F,1.67,Scottish Australians,31.0,4.484864421078068,Specialised Drama School,False,,Sydney New South Wales Australia,,,1967.0,October,Not Ranked,0,3000,1,0,0,0,USA
 Amber Sainsbury,F,1.72,,29.0,4.484831793486427,King's College London,False,,New Zealand,,,1978.0,August,40,1,40,0,0,0,0,Rest of World
-Gastón Pauls,M,1.74,,28.0,4.484774614913529,Did not go,True,,Buenos Aires Argentina,,2009.0,1972.0,January,Not Ranked,0,3000,0,0,0,0,Rest of World
+Gastón Pauls,M,1.74,,28.0,4.484774614913529,Did not go,True,,Buenos Aires Argentina,,2.0,1972.0,January,Not Ranked,0,3000,0,0,0,0,Rest of World
 Gary Basaraba,M,1.9,,29.0,4.484686202830822,Specialised Drama School,False,,Edmonton Alberta Canada1,,,1959.0,March,Not Ranked,0,3000,1,0,0,0,Rest of World
 Ana De La Reguera,F,1.6,,29.0,4.483911036433537,Did not go,False,,,,,1977.0,April,Not Ranked,0,3000,0,0,0,0,
 Kelly Lebrock,F,1.727,,24.0,4.483556816731571,Did not go,False,,New York City US,,3.0,1960.0,March,Not Ranked,0,3000,0,0,0,0,USA
@@ -3576,7 +3576,7 @@ John Waters,M,1.88,,40.0,4.362870052439853,Did not go,False,,Baltimore Maryland 
 Dorian Harewood,M,1.803,African Americans,33.0,4.3628460112063525,University of Cincinnati,True,Football,Dayton Ohio US,,2.0,1950.0,August,691,1,691,0,0,0,0,USA
 Morena Baccarin,F,1.71,,26.0,4.36269266646521,Specialised Music School,True,,Rio de Janeiro Brazil,United StatesBrazil,3.0,1979.0,June,Not Ranked,0,3000,0,0,0,0,Rest of World
 Sean Maher,M,1.77,,30.0,4.36269266646521,New York University (NYU),False,,Pleasantville New York US,,2.0,1975.0,April,38,1,38,0,0,0,0,USA
-Zohren Weiss,M,180.0,,10.0,4.362559331082304,Did not go,False,,,,,1986.0,March,Not Ranked,0,3000,0,0,0,0,
+Zohren Weiss,M,1.75,,10.0,4.362559331082304,Did not go,False,,,,,1986.0,March,Not Ranked,0,3000,0,0,0,0,
 Kim Hawthorne,F,1.65,African Americans,,4.362366629672877,sub 1500 school,True,,Jersey City New Jersey US,,,,,Not Ranked,0,3000,0,0,0,0,USA
 Erik von Detten,M,1.85,,12.0,4.362256042574831,Did not go,False,,San Diego California US,,3.0,1982.0,October,Not Ranked,0,3000,0,0,0,0,USA
 Thad Luckinbill,M,1.85,,27.0,4.362188929062587,Did not go,False,,Enid Oklahoma US,,2.0,1975.0,April,Not Ranked,0,3000,0,0,0,0,USA
@@ -4756,7 +4756,7 @@ Ray Allen,M,1.96,African Americans,22.0,4.073280479461699,Did not go,False,Baske
 Rachel Hunter,F,1.8,,31.0,4.072810683763552,Did not go,False,Ballet,Glenfield Auckland New Zealand,,2.0,1969.0,September,Not Ranked,0,3000,0,0,0,0,Rest of World
 Teri Garr,F,1.702,,33.0,4.072701610389907,Specialised Drama School,True,Dance,Los Angeles California USa,,1.0,1947.0,December,Not Ranked,0,3000,1,0,0,0,USA
 Gordon Michael Woolvett,M,1.664,,28.0,4.072366095365217,Did not go,False,,Hamilton Ontario Canada,,3.0,1970.0,June,Not Ranked,0,3000,0,0,0,0,Rest of World
-Vince Corazza,M,510.0,,25.0,4.072366095365217,Did not go,True,Dance,Newmarket Ontario Canada,,,1972.0,December,Not Ranked,0,3000,0,0,0,0,Rest of World
+Vince Corazza,M,1.78,,25.0,4.072366095365217,Did not go,True,Dance,Newmarket Ontario Canada,,,1972.0,December,Not Ranked,0,3000,0,0,0,0,Rest of World
 Bob Peck,M,1.87,,47.0,4.072264796013796,Did not go,True,,Leeds West Riding of Yorkshire England,,3.0,1945.0,August,Not Ranked,0,3000,0,0,0,0,United Kingdom
 Amanda Burton,F,1.63,,,4.071887115705154,Colorado School of Mines,True,,Derry Northern Ireland,,2.0,1956.0,October,465,1,465,0,0,0,0,United Kingdom
 Ice T,M,1.8,African Americans,34.0,4.071763604005923,Did not go,False,Track,Newark New Jersey US,,3.0,1958.0,February,Not Ranked,0,3000,0,0,0,0,USA
@@ -4977,7 +4977,7 @@ Jakki Degg,F,1.6,English people,25.0,4.003253933899665,Did not go,False,Ballet,S
 Molly Schade,F,1.7,White people,,4.003253933899665,Did not go,False,,,,,,,Not Ranked,0,3000,0,0,0,0,
 Don Harvey,M,1.8,,,4.003139810406696,Did not go,False,,,,,,,Not Ranked,0,3000,0,0,0,0,
 Ana Cristina Oliveira,F,1.75,,31.0,4.00242387435266,Did not go,True,,Lisbon Portugal,,,1973.0,July,Not Ranked,0,3000,0,0,0,0,Rest of World
-Ingrid Vandebosch,F,1.75,,33.0,4.00242387435266,Did not go,True,,ZichenZussenBolder Limburg Belgium,,2007.0,1970.0,November,Not Ranked,0,3000,0,0,0,0,USA
+Ingrid Vandebosch,F,1.75,,33.0,4.00242387435266,Did not go,True,,ZichenZussenBolder Limburg Belgium,,2.0,1970.0,November,Not Ranked,0,3000,0,0,0,0,USA
 Liane Alexandra Curtis,F,1.65,,17.0,4.002042627844309,Did not go,False,Dance,New York City New York USA,,3.0,1965.0,July,Not Ranked,0,3000,0,0,0,0,USA
 Alex Wolff,M,1.4,Jewish people,14.0,4.001349891166034,Did not go,True,Track,New York City US,,,1997.0,November,Not Ranked,0,3000,0,0,0,0,USA
 Joe Urban,M,2.03,,,4.001349891166034,Did not go,False,,,,,,,Not Ranked,0,3000,0,0,0,0,
@@ -5491,7 +5491,7 @@ Jason Alexander,M,1.64,,30.0,3.803526771587773,Boston University,True,,Newark Ne
 Katelyn Pacitto,F,1.65,,18.0,3.802990713849133,Did not go,False,,,,,1989.0,September,Not Ranked,0,3000,0,0,0,0,
 Charles Martin Smith,M,1.626,,31.0,3.8029291359592383,Did not go,False,,Van Nuys California US,,1.0,1953.0,October,Not Ranked,0,3000,0,0,0,0,USA
 Nick Brimble,M,1.93,English people,46.0,3.802699643722408,Did not go,True,,Bristol England,,,1944.0,July,Not Ranked,0,3000,0,0,0,0,United Kingdom
-John Cassini,M,1.75,Italian Canadians,-17.0,3.8026877111194928,Did not go,False,,,,,2011.0,September,Not Ranked,0,3000,0,0,0,0,
+John Cassini,M,1.75,Italian Canadians,27.0,3.8026877111194928,Did not go,False,,,,,1964.0,September,Not Ranked,0,3000,0,0,0,0,
 Steve Talley,M,1.85,,24.0,3.802532125863292,Did not go,False,,Indianapolis Indiana US,,1.0,1981.0,August,Not Ranked,0,3000,0,0,0,0,USA
 Chuck Mitchell,M,1.92,,57.0,3.801975002147053,Did not go,False,,Connecticut United States,,,1927.0,November,Not Ranked,0,3000,0,0,0,0,USA
 Bo Jackson,M,1.85,African Americans,33.0,3.8013298190294296,sub 1500 school,False,Baseball,Bessemer Alabama US,,,1962.0,November,Not Ranked,0,3000,0,0,0,0,USA
@@ -5965,7 +5965,7 @@ Blake Bashoff,M,1.727,Jewish people,20.0,3.5135619002543272,Did not go,True,Danc
 Sonsee Neu,F,1.68,,24.0,3.512825199467832,Did not go,False,,,,,1973.0,June,Not Ranked,0,3000,0,0,0,0,
 Polly Bergen,F,1.65,,59.0,3.508541327210481,Did not go,True,Dance,Knoxville Tennessee US,,3.0,1930.0,July,Not Ranked,0,3000,0,0,0,0,USA
 Vanessa Redgrave,F,1.8,White British,59.0,3.5083263662854485,Specialised Drama School,True,,Blackheath London England,,,1937.0,January,Not Ranked,0,3000,1,0,0,0,United Kingdom
-Dale Gibson,M,1.82,,-26.0,3.506360045669365,sub 1500 school,False,Basketball,,,,1965.0,October,Not Ranked,0,3000,0,0,0,0,
+Dale Gibson,M,1.82,,25.0,3.506360045669365,sub 1500 school,False,Basketball,,,,1965.0,October,Not Ranked,0,3000,0,0,0,0,
 Dominique Swain,F,1.75,,16.0,3.5053927398999574,Did not go,False,,Malibu California US,,,1980.0,August,Not Ranked,0,3000,0,0,0,0,USA
 Breckin Meyer,M,1.65,,17.0,3.504341749219692,Did not go,False,Dance,Minneapolis Minnesota US,,2.0,1974.0,May,Not Ranked,0,3000,0,0,0,0,USA
 David Bennent,M,1.55,,18.0,3.5033011415733823,Did not go,False,,Lausanne Switzerland,,,1966.0,September,Not Ranked,0,3000,0,0,0,0,USA
