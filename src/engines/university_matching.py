@@ -131,9 +131,9 @@ class UniversityMatchEngine:
         
 
     def add_university_rank(self, actor_df):
-        actor_df['University Rank'] = actor_df['University'].map(self.rankings_dict)
-        actor_df['University Rank'] = actor_df['University Rank'].fillna('Not Ranked')
-        actor_df['University Rank'] = actor_df['University Rank'].apply(self.clean_rank)
+        actor_df['QS University Rank'] = actor_df['University'].map(self.rankings_dict)
+        actor_df['QS University Rank'] = actor_df['QS University Rank'].fillna('Not Ranked')
+        actor_df['QS University Rank'] = actor_df['QS University Rank'].apply(self.clean_rank)
         return
 
 
@@ -165,10 +165,10 @@ class UniversityMatchEngine:
         self.add_university_rank(actor_df)
 
         # Create a binary column: 1 if 'uni_rank' is numeric, 0 if 'Not Ranked'
-        actor_df['Ranked Uni'] = actor_df['University Rank'].apply(lambda x: 1 if isinstance(x, int) else 0)
+        actor_df['Ranked Uni'] = actor_df['QS University Rank'].apply(lambda x: 1 if isinstance(x, int) else 0)
 
         # Replace 'Not Ranked' with a placeholder of 3000 (very large)
-        actor_df['Usable Uni Rank'] = actor_df['University Rank'].apply(lambda x: x if isinstance(x, int) else 3000)
+        actor_df['Usable Uni Rank'] = actor_df['QS University Rank'].apply(lambda x: x if isinstance(x, int) else 3000)
 
         # Create binary columns of whether or not the actor went to a specialised school
         actor_df['Specialised Drama School'] = self.contains_keyword(actor_df['University'], 'drama')

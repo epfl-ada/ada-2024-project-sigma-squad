@@ -108,7 +108,7 @@ def load_actor_data_for_analysis():
     actor_df = pd.read_csv('actor_data_for_regression.csv', index_col=0)
     actor_df['Age at First Release'] = actor_df['Age at First Release'].astype('Int64')
     actor_df['Number of Children'] = actor_df['Number of Children'].astype('Int64')
-    actor_df['Birth Year'] = actor_df['Age at First Release'].astype('Int64')
+    actor_df['Birth Year'] = actor_df['Birth Year'].astype('Int64')
 
     return actor_df
 

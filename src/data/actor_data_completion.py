@@ -59,8 +59,8 @@ def clean_actor_data(actor_df):
     
     convert_ethnicity_ids(actor_df)
     separate_dob_into_year_month(actor_df)
-    groupby_region(actor_df)
     match_universities(actor_df)
+    groupby_region(actor_df)
 
     # Changes Theater values to boolean
     actor_df['Theater'] = actor_df['Theater'].apply(lambda x: True if (x == 'Yes') else False)
