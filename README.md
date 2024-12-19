@@ -27,7 +27,7 @@
 
 We aim to analyse the factors contributing to the long-term career success of actors in the film industry. We seek to explore what sets successful actors apart. Starting from a bottom-up approach, we will first establish a "success index" for movies based on various weighted factors, such as ratings, revenue, awards, and popularity. Once we identify the most successful movies, we will trace the actors involved and evaluate their career paths, identifying trends that may contribute to their success. We will then explore specific actor attributes—such as genre specialization, age at career start, and frequency of successful roles—to determine correlations and potential predictors of sustained success. Ultimately, our goal is to offer a data-driven understanding of what makes certain actors thrive in the competitive film industry.
 
-### Check our [site](https://elboyer228.github.io/sigma_squad_site/) ! 
+### Discover the secrets of success—dive into the details on our official [site](https://elboyer228.github.io/sigma_squad_site/) ! 
 
 ## Summary from the P2 
 
