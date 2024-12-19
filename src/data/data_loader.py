@@ -103,7 +103,7 @@ def load_character_data():
     return character_data
 
 
-def load_actor_data_for_regression():
+def load_actor_data_for_analysis():
 
     actor_df = pd.read_csv('actor_data_for_regression.csv', index_col=0)
     actor_df['Age at First Release'] = actor_df['Age at First Release'].astype('Int64')
