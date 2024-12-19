@@ -1,8 +1,34 @@
 import pandas as pd
 from ..converter import converter
 from ..webscraping import spider
-from tqdm import tqdm
 from rapidfuzz import process
+from tqdm import tqdm
+
+
+def clean_actor_data(actor_df):
+    """
+    Cleans and processes the actor data, to be ready for analysis.
+
+    Parameters:
+    actor_df: The DataFrame containing the actor data.
+    """
+
+    actor_df.rename(columns={'Actor date of birth': 'Date of Birth',
+                             'Actor gender': 'Gender',
+                             'Actor height': 'Height',
+                             'Actor ethnicity': 'Ethnicity',
+                             'Actor age at movie release': 'Age at First Release',
+                             'Actor Score Index': 'Success Score'},
+                    inplace=True)
+    
+    convert_ethnicity_ids(actor_df)
+    separate_dob_into_year_month(actor_df)
+    groupby_region(actor_df)
+    clean_universities(actor_df)
+
+    actor_df['Age at First Release'] = actor_df['Age at First Release'].astype('Int64')
+    actor_df['Theater'] = actor_df['Theater'].apply(lambda x: True if (x == 'Yes') else False)
+    return
 
 
 def scrape_actor_data(actor_df):
@@ -81,33 +107,10 @@ def groupby_region(actor_df):
     # Fill in missing values with USA if citizenship is USA
     actor_df.loc[actor_df['Birth Region'].str.contains('nan') & actor_df['Citizenship'].notna(), 'Birth City'] = 'USA'
 
-    #actor_df.drop(columns=['Birth City', 'Citizenship'], inplace=True)
+    actor_df.drop(columns=['Birth City', 'Citizenship'], inplace=True)
         
     return
 
-
-def clean_actor_data(actor_df):
-
-    actor_df.rename(columns={'Actor date of birth': 'Date of Birth',
-                             'Actor gender': 'Gender',
-                             'Actor height': 'Height',
-                             'Actor ethnicity': 'Ethnicity',
-                             'Actor age at movie release': 'Age at First Release',
-                             'Actor Score Index': 'Success Score'},
-                    inplace=True)
-    
-    convert_ethnicity_ids(actor_df)
-    separate_dob_into_year_month(actor_df)
-    groupby_region(actor_df)
-    clean_universities(actor_df)
-
-    actor_df['Age at First Release'] = actor_df['Age at First Release'].astype('Int64')
-    actor_df['Theater'] = actor_df['Theater'].apply(lambda x: True if (x == 'Yes') else False)
-
-
-    #TODO: ...
-
-    return
 
 def match_universities(uni_name, qs_uni):
     if not isinstance(uni_name, str):  # Check if the value is NaN
@@ -117,6 +120,7 @@ def match_universities(uni_name, qs_uni):
         match, score, _ = result  # Unpack match, score, and index
         return match if score > 88 else None  # Return match only if confidence > 80
     return None
+
 
 def clean_rank(rank):
     if rank == 'Not Ranked':
@@ -130,13 +134,15 @@ def clean_rank(rank):
     else:
         return int(rank)
 
+
 def contains_keyword(column, keyword):
     return column.str.contains(keyword, case=False, na=False).astype(int)
+
 
 def clean_universities(actor_df: pd.DataFrame):
 
     # Load the values of the QS University Rankings 2024
-    rankings = pd.read_csv('data/2024_QS_World_University_Rankings_csv', header=0)
+    rankings = pd.read_csv('data/2024_QS_World_University_Rankings.csv', header=0)
     
     # Do a first round of matching the institution names to the universities found through scraping
     qs_uni_names = rankings['Institution Name'].to_list()
