@@ -186,3 +186,27 @@ def actor_index_distribution(actor_df):
     stats_df = pd.DataFrame(stats).set_index('Dataset')
     
     return stats_df.head()
+
+
+def plot_ethnicity_distribution(df, ethnicity_column='Ethnicity'):
+
+    ethnicity_counts = df[ethnicity_column].value_counts()
+
+    # Set the color palette
+    color_palette = sns.color_palette("muted")
+
+    # Create the bar plot
+    plt.figure(figsize=(12, 6))
+    sns.barplot(x=ethnicity_counts.index, y=ethnicity_counts.values, palette=color_palette)
+
+    # Set the title and labels
+    plt.title('Ethnicity Distribution', fontsize=18, weight='bold')
+    plt.xlabel('Ethnicity', fontsize=16)
+    plt.ylabel('Count', fontsize=16)
+
+    # Rotate x-axis labels for better readability
+    plt.xticks(rotation=45, ha='right')
+
+    # Show the plot
+    plt.tight_layout()
+    plt.show()

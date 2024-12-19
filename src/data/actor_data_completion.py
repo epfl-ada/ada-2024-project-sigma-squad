@@ -47,6 +47,7 @@ def clean_actor_data(actor_df):
     return
 
 
+
 def convert_ethnicity_ids(actor_df):
     """
     This function starts the mapping of ethnicity entity IDs to their corresponding ethnicity names.
