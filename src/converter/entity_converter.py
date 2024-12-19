@@ -3,6 +3,7 @@
 """
 Entity converter converts between Freebase and Wikidata entity IDs.
 """
+
 import requests
 from SPARQLWrapper import JSON, SPARQLWrapper
 
@@ -16,6 +17,7 @@ class EntityConverter:
         self.ethnicity_data = {} # Dictionary to store the mapping between MIDs and ethnicity labels
         self.seen_mids = set()  # Set to keep track of unique MIDs
     
+
     def query_wikidata(self, query):
         """Query wikidata
 
@@ -33,8 +35,9 @@ class EntityConverter:
             print(f"Error with query wikidata: {e}")
             return None
 
+
     def mid_to_qid(self, entity, limit=1):
-        """Convert freebase id to wikidata id
+        """Convert freebase id (mid) to wikidata id (qid).
 
         Args:
             entity (str): Freebase id, e.g. /m/0bwd_0
@@ -62,6 +65,7 @@ class EntityConverter:
             qids = [qid.split("/")[-1] for qid in qids]
             return qids
         return None
+
 
     def qid_to_ethnicity(self, qid):
         """
@@ -98,7 +102,15 @@ class EntityConverter:
             print(f"Error fetching data for {qid}: {e}")
             return None
 
+
     def get_ethnicity(self, mid):
+        """
+        Searches the ethnicity label associated with the actors MID (Freebase ID).
+
+        Returns:
+            str or None: Ethnicity label, or None if the MID is None or if no ethnicity data is found.
+        """
+        
         if mid is None:
             return None
         elif mid in self.seen_mids:
