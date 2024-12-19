@@ -1,14 +1,11 @@
-# Copyright (c) 2012-2022 Yuanchun Shen
-
-"""
-Entity converter converts between Freebase and Wikidata entity IDs.
-"""
+# Copyright (c) 2012-2022 Yuanchun Shen (https://github.com/happen2me/freebase-wikidata-convert)
 
 import requests
 from SPARQLWrapper import JSON, SPARQLWrapper
 
-class EntityConverter:
-    """A converter to convert between freebase and wikidata entities.
+class EntityConverterEngine:
+    """
+    Entity converter converts between Freebase and Wikidata entity IDs.
     """
     def __init__(self, endpoint="https://query.wikidata.org/sparql") -> None:
         sparql = SPARQLWrapper(endpoint)

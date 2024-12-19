@@ -6,7 +6,7 @@ import re
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
-class ActorScraper:
+class ActorScraperEngine:
     def __init__(self):
         pass
 
