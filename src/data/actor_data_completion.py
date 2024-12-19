@@ -290,35 +290,32 @@ def clean_universities(actor_df: pd.DataFrame):
     )
 
     # Add 'uni_rank' while keeping other columns intact
-    show_data_reset['uni_rank'] = show_data_reset['2024 QS World University Rankings']  # Copy Rank to uni_rank
+    show_data_reset['University Rank'] = show_data_reset['2024 QS World University Rankings']  # Copy Rank to uni_rank
 
     # Drop redundant 'Institution Name' and 'Rank' columns if needed
     show_data_reset = show_data_reset.drop(columns=['Institution Name', '2024 QS World University Rankings'], errors='ignore')
 
     # Fill missing 'uni_rank' for unmatched universities with 'Not Ranked'
-    show_data_reset['uni_rank'] = show_data_reset['uni_rank'].fillna('Not Ranked')
+    show_data_reset['University Rank'] = show_data_reset['University Rank'].fillna('Not Ranked')
 
     # Set 'actor_name' back as the index
     actor_df = show_data_reset.set_index('Actor name')
-
+   
     # Get rid of the now useless found_match column
     actor_df.drop(columns=['found_match'], inplace=True)
-
-    actor_df['uni_rank'] = actor_df['uni_rank'].apply(clean_rank)
+    
+    actor_df['University Rank'] = actor_df['University Rank'].apply(clean_rank)
 
     # Create a binary column: 1 if 'uni_rank' is numeric, 0 if 'Not Ranked'
-    actor_df['Ranked Uni'] = actor_df['uni_rank'].apply(lambda x: 1 if isinstance(x, int) else 0)
+    actor_df['Ranked Uni'] = actor_df['University Rank'].apply(lambda x: 1 if isinstance(x, int) else 0)
 
     # Replace 'Not Ranked' with a placeholder of 3000 (very large)
-    actor_df['Usable Uni Rank'] = actor_df['uni_rank'].apply(lambda x: x if isinstance(x, int) else 3000)
+    actor_df['Usable Uni Rank'] = actor_df['University Rank'].apply(lambda x: x if isinstance(x, int) else 3000)
 
     # Create binary columns of whether or not the actor went to a specialised school
     actor_df['Specialised Drama School'] = contains_keyword(actor_df['University'], 'drama')
     actor_df['Specialised Acting School'] = contains_keyword(actor_df['University'], 'acting')
     actor_df['Specialised Dance School'] = contains_keyword(actor_df['University'], 'dance')
     actor_df['Specialised Arts School'] = contains_keyword(actor_df['University'], 'arts')
-
-    # Clean up column name (Admittedly a vestige but I cannot be bothered to change the name everywhere...)
-    actor_df.rename(columns={'uni_rank': 'University Rank'})
-
+    print(actor_df)
     return
