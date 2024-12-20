@@ -78,9 +78,6 @@ Using this enriched and cleaned dataset, we analyzed the correlations between va
 ├── data                        <- Project datasets
 │   └── ...
 │
-├── docs                        <- Documentation files
-│   └── ...
-│
 ├── plots_site                  <- Directory for plot outputs
 │   └── ...
 │
