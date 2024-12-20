@@ -1,10 +1,9 @@
+import plotly.graph_objects as go
 import matplotlib.pyplot as plt
+import plotly.io as pio 
 import seaborn as sns
 import pandas as pd
-import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import plotly.io as pio 
-
 
 
 def hist_std_config(df, column_name, title, nbins=50, color="#3498DB", range_x=None):

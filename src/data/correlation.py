@@ -1,5 +1,7 @@
+import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import numpy as np
 from src.constants import ETHNICITY_MAPPING
 
 
@@ -14,11 +16,13 @@ def display_correlation(df, plot=False):
     """
     Calculate and display the correlation of all features with the 'Success Score' in the given DataFrame.
     """
-    corr = df.corr()
-    corr_success = corr['Success Score']
-    corr_success = corr_success.sort_values(ascending=False)
-    corr_success = corr_success.drop('Success Score')
-    return corr_success
+    numeric_df = df.select_dtypes(include=[np.number])
+
+    corr = numeric_df.corr()
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(corr, annot=True, cmap='coolwarm')
+    plt.show()
+    return plt
 
 def ethnicity_to_group(df):
     """
