@@ -8,8 +8,6 @@ from src.data.correlation import ethnicity_to_group
 
 def train_linear_regression():
     # Load data
-    df = pd.read_csv('actor_data_for_regression')
-
     df = pd.read_csv('actor_data_for_regression.csv')
     df = ethnicity_to_group(df)
     df = df.drop(['Actor name', 'Usable Uni Rank', 'Citizenship', 'QS University Rank', 'Birth City', 'University',], axis=1)
