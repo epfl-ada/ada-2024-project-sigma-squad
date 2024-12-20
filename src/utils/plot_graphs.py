@@ -439,5 +439,5 @@ def plot_movie_review_distribution(df):
         width=800
     )
 
-    fig.write_html('plots_site/movie_score_distribution.html')
+    fig.write_html('plots_site/movie_reviews_distribution.html')
     return fig
