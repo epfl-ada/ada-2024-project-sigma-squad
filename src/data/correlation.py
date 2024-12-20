@@ -1,12 +1,11 @@
-import pandas as pd
 import seaborn as sns
-import matplotlib.pyplot as plt
+import pandas as pd
 from src.constants import ETHNICITY_MAPPING
 
 
 def encode_categorical(df, columns):
     """
-    Encodes categorical features in the actor_df using one-hot encoding.
+    Encodes categorical features in the given DataFrame using one-hot encoding.
     """
     return pd.get_dummies(df, columns=columns)
 

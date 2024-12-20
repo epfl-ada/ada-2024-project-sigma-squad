@@ -53,7 +53,7 @@ def load_movie_stats():
     return movie_stats
 
 
-# CMU Movie Dataset:
+# CMU Movie Dataset (http://www.cs.cmu.edu/~ark/personas/):
 
 def load_original_data():
     """
@@ -76,6 +76,37 @@ def load_original_data():
     return original_data
 
 
+# Freebase Character Metadataset (http://www.cs.cmu.edu/~ark/personas/):
+
+def load_character_data():
+    """
+    Loads character data from the charachter.metadata TSV file (2012 dump of Freebase).
+
+    Returns:
+        pandas.DataFrame: DataFrame containing the character data.
+    """
+    character_data = pd.read_csv('data/character.metadata.tsv', sep='\t', names= ['Wikipedia movie ID', 'Freebase movie ID', 'Movie release date', 'Character name', 'Actor date of birth', 'Actor gender', 
+                                 'Actor height', 'Actor ethnicity', 'Actor name', 'Actor age at movie release', 'Freebase character/actor map ID', 'Freebase character ID', 'Freebase actor ID'])
+    return character_data
+
+
+def load_actor_data_for_analysis():
+    """
+    Loads the pre-completed actor data for analysis.
+    Converts columns containing floats to int.
+
+    Returns:
+        pandas.DataFrame: DataFrame containing the actor data for analysis.
+    """
+
+    actor_df = pd.read_csv('actor_data_for_regression.csv', index_col=0)
+    actor_df['Age at First Release'] = actor_df['Age at First Release'].astype('Int64')
+    actor_df['Number of Children'] = actor_df['Number of Children'].astype('Int64')
+    actor_df['Birth Year'] = actor_df['Birth Year'].astype('Int64')
+
+    return actor_df
+
+
 def convert_to_datetime(date):
     """
     Converts a date to datetime format. 
@@ -95,31 +126,3 @@ def convert_to_datetime(date):
         return pd.to_datetime(str(date) + '-01-01')
     else:
         return pd.to_datetime(date, errors='coerce')  # Convert if it's in a full date format
-
-
-def load_character_data():
-    character_data = pd.read_csv('data/character.metadata.tsv', sep='\t', names= ['Wikipedia movie ID', 'Freebase movie ID', 'Movie release date', 'Character name', 'Actor date of birth', 'Actor gender', 
-                                 'Actor height', 'Actor ethnicity', 'Actor name', 'Actor age at movie release', 'Freebase character/actor map ID', 'Freebase character ID', 'Freebase actor ID'])
-    return character_data
-
-
-def load_actor_data_for_analysis():
-
-    actor_df = pd.read_csv('data/actor_data_for_regression.csv', index_col=0)
-    actor_df['Age at First Release'] = actor_df['Age at First Release'].astype('Int64')
-    actor_df['Number of Children'] = actor_df['Number of Children'].astype('Int64')
-    actor_df['Birth Year'] = actor_df['Birth Year'].astype('Int64')
-
-    return actor_df
-
-def load_data_movies_for_plot(): 
-    return pd.read_csv('data/movie+character_merged.csv') 
-
-
-if __name__ == "__main__":
-    print(load_oscars_data().head())
-    print()
-    print(load_movie_stats().head())
-    print()
-    print(load_original_data().head())
-    
