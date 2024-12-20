@@ -106,12 +106,23 @@ class ActorScraperEngine:
         }
 
     def construct_url(self, actor_name):
+        """
+        Constructs a URL for the given actor's name by replacing spaces with underscores.
+        """
         return f"{self.base_url}{actor_name.replace(' ', '_')}"
 
     def get_response(self, url):
+        """
+        Sends a GET request to the specified URL with a custom User-Agent header.
+        """
         return requests.get(url, headers={"User-Agent": "Mozilla/5.0"})
 
     def determine_gender(self, soup):
+        """
+        Finds the gender of the actor, based on the first HTML paragraph.
+        If it finds the words 'actor' or 'actress', it returns the corresponding gender
+        Else it counts the number of 'he' and 'she' pronouns and returns gender of the biggest count.
+        """
         paragraphs = soup.find_all('p')
         for paragraph in paragraphs:
             if paragraph.text.strip():
@@ -131,6 +142,10 @@ class ActorScraperEngine:
         return None
 
     def parse_infobox(self, infobox, data):
+        """
+        Parses the infobox of the Wikipedia page to extract 'University', 'Citizenship',
+        'Number of Children', and 'Career Start' information.
+        """
         rows = infobox.find_all('tr')
         for row in rows:
             header = row.find('th')
@@ -161,6 +176,9 @@ class ActorScraperEngine:
                     data['Career Start'] = match.group()
 
     def extract_birth_info(self, cell, data):
+        """
+        Extracts birth city in the infobox if provided.
+        """
         bday = cell.find('span', class_='bday')
         if bday:
             data['Date of Birth'] = bday.text.strip()
@@ -186,6 +204,9 @@ class ActorScraperEngine:
         data['Birth City'] = self.clean_text(data['Birth City'])
 
     def search_sections(self, soup, data):
+        """
+        Searches for specific keywords and in different Wikipedia sections.
+        """
         sports_keywords = ['soccer', 'football', 'basketball', 'baseball', 'tennis', 'track', 'swimming', 'martial arts', 'ballet', 'dance']
         theater_keywords = ['theater', 'theatre']
         university_keywords = ['university', 'college', 'academy', 'institute', 'school']
@@ -195,6 +216,9 @@ class ActorScraperEngine:
         self.search_body_content(soup, data, sports_keywords, theater_keywords, university_keywords)
 
     def search_early_life_section(self, soup, data, sports_keywords, theater_keywords, university_keywords):
+        """
+        Searches for the 'Early Life' section.
+        """
         early_life = soup.find('h2', {'id': lambda x: x and 'early_life' in x.lower()})
         if early_life:
             data['Sports'] = self.search_section(early_life.find_parent(), sports_keywords)
@@ -203,12 +227,18 @@ class ActorScraperEngine:
                 data['University'] = self.search_section(early_life, university_keywords)
 
     def search_career_section(self, soup, data, sports_keywords, theater_keywords):
+        """
+        Searches for the career section.
+        """
         career_section = soup.find('h2', {'id': lambda x: x and 'career' in x.lower()})
         if career_section:
             data['Sports'] = data['Sports'] or self.search_section(career_section.find_parent(), sports_keywords)
             data['Theater'] = data['Theater'] or ('Yes' if self.search_section(career_section.find_parent(), theater_keywords) else None)
 
     def search_body_content(self, soup, data, sports_keywords, theater_keywords, university_keywords):
+        """
+        Prepares search in the body content.
+        """
         body_content = soup.find('div', {'class': 'mw-parser-output'})
         if body_content:
             if not (data['Theater'] or data['Sports']):
@@ -218,6 +248,10 @@ class ActorScraperEngine:
                 self.search_university(body_content, data, university_keywords)
 
     def search_paragraphs(self, body_content, data, sports_keywords, theater_keywords):
+        """
+        Searches through paragraphs in the provided body and updates the data dictionary
+        with the keywords found for sports and theater.
+        """
         for paragraph in body_content.find_all('p', recursive=False):
             text = paragraph.text.lower()
             for keyword in sports_keywords:
@@ -230,6 +264,9 @@ class ActorScraperEngine:
                     break
 
     def search_university(self, body_content, data, university_keywords):
+        """
+        Searches for university-related keywords in the provided body content.
+        """
         for paragraph in body_content.find_all('p', recursive=False):
             text = paragraph.text.lower()
             for keyword in university_keywords:
@@ -254,6 +291,9 @@ class ActorScraperEngine:
                         break
 
     def search_section(self, section, keywords):
+        """
+        Searches for the keywords within the paragraphs siblings.
+        """
         for sibling in section.find_next_siblings():
             if sibling.name in ['div', 'h2', 'h3']:
                 break
