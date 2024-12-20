@@ -348,7 +348,7 @@ def movie_revenue_distribution_plot(data, revenue_max=500_000_000, log_revenue_m
     fig.update_layout(
         title="Distribution of Box Office Revenue and Log Revenue",
         xaxis=dict(title="Box Office Revenue [USD (millions)]"),
-        xaxis2=dict(title="Log Revenue"),
+        xaxis2=dict(title="Log Revenue [-]"),
         yaxis=dict(title="Frequency"),
         yaxis2=dict(title="Frequency"),
         height=400,  # Adjust height to a smaller value
@@ -403,7 +403,7 @@ def movie_score_distribution_plot(data, score_max=10,
     # Update layout
     fig.update_layout(
         title="Distribution of Movie Scores",
-        xaxis=dict(title="Movie Score"),
+        xaxis=dict(title="Movie Score [-]",range=[0, 10]  ),
         yaxis=dict(title="Frequency"),
         height=300,
         width=850,
@@ -412,10 +412,10 @@ def movie_score_distribution_plot(data, score_max=10,
     )
 
     # Show the figure
-    fig.show()
+
 
     # Save the figure as an HTML file and an image
     pio.write_html(fig, file=html_output_path, auto_open=False, include_plotlyjs='cdn')
     pio.write_image(fig, file=png_output_path, format='png', scale=2)
-    print(f"Plot saved as '{html_output_path}' and '{png_output_path}'")
+    
     return fig 
