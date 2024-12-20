@@ -5,7 +5,6 @@ from sklearn.metrics import mean_squared_error, r2_score
 from src.data.correlation import ethnicity_to_group
 
 
-
 def train_linear_regression():
     # Load data
     df = pd.read_csv('actor_data_for_regression.csv')
