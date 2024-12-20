@@ -232,12 +232,12 @@ def revenue_budget_histograms(data, revenue_budget_max=200, log_revenue_budget_m
                                      output_image_path="plots_site/responsive_histograms.png", 
                                      output_html_path="plots_site/responsive_graph.html"):
     """
-    Create histograms for Revenue/Budget Ratio and Log Revenue/Budget Ratio distributions.
+    Create histograms for Profitability and Log Profitability distributions.
 
     Parameters:
-        data (DataFrame): Input data containing 'Revenue/Budget ratio' and 'Log Revenue/Budget ratio' columns.
-        revenue_budget_max (int, optional): Maximum value for filtering 'Revenue/Budget ratio'. Defaults to 200.
-        log_revenue_budget_max (int, optional): Maximum value for filtering 'Log Revenue/Budget ratio'. Defaults to 13.
+        data (DataFrame): Input data containing 'Profitability' and 'Log Profitability' columns.
+        revenue_budget_max (int, optional): Maximum value for filtering 'Profitability'. Defaults to 200.
+        log_revenue_budget_max (int, optional): Maximum value for filtering 'Log Profitability'. Defaults to 13.
         output_image_path (str, optional): Path to save the resulting PNG image. Defaults to 'plots_site/responsive_histograms.png'.
         output_html_path (str, optional): Path to save the resulting HTML file. Defaults to 'plots_site/responsive_graph.html'.
 
@@ -250,16 +250,16 @@ def revenue_budget_histograms(data, revenue_budget_max=200, log_revenue_budget_m
         shared_xaxes=False,
         vertical_spacing=0.3,
         subplot_titles=(
-            "Revenue/Budget Ratio Distribution", 
-            "Log Revenue/Budget Ratio Distribution"
+            "Profitability Distribution", 
+            "Log Profitability Distribution"
         )
     )
 
     fig.add_trace(
         go.Histogram(
-            x=data['Revenue/Budget ratio'][data['Revenue/Budget ratio'] <= revenue_budget_max],
+            x=data['Profitability'][data['Profitability'] <= revenue_budget_max],
             nbinsx=200,
-            name='Revenue/Budget ratio',
+            name='Profitability',
             marker=dict(color='orange', opacity=0.7)
         ),
         row=1, col=1
@@ -267,18 +267,18 @@ def revenue_budget_histograms(data, revenue_budget_max=200, log_revenue_budget_m
 
     fig.add_trace(
         go.Histogram(
-            x=data['Log Revenue/Budget ratio'][data['Log Revenue/Budget ratio'] <= log_revenue_budget_max],
+            x=data['Log Profitability'][data['Log Profitability'] <= log_revenue_budget_max],
             nbinsx=50,
-            name='Log Revenue/Budget ratio',
+            name='Log Profitability',
             marker=dict(color='darkorange', opacity=0.7)
         ),
         row=2, col=1
     )
 
     fig.update_layout(
-        title="Distribution of Revenue/Budget and Log Revenue/Budget Ratios",
-        xaxis=dict(title="Revenue/Budget Ratio"),
-        xaxis2=dict(title="Log Revenue/Budget Ratio"),
+        title="Distribution of Revenue/Budget and Log Profitabilitys",
+        xaxis=dict(title="Profitability"),
+        xaxis2=dict(title="Log Profitability"),
         yaxis=dict(title="Frequency"),
         yaxis2=dict(title="Frequency"),
         height=400,  # Adjust height to a smaller value
@@ -302,9 +302,9 @@ def movie_revenue_distribution_plot(data, revenue_max=500_000_000, log_revenue_m
     Create histograms for Movie Box Office Revenue and Log Revenue distributions.
 
     Parameters:
-        data (DataFrame): Input data containing 'Movie box office revenue' and 'Log revenue' columns.
+        data (DataFrame): Input data containing 'Movie box office revenue' and 'Log Revenue' columns.
         revenue_max (int, optional): Maximum threshold for 'Movie box office revenue'. Defaults to 500,000,000.
-        log_revenue_max (int, optional): Maximum threshold for 'Log revenue'. Defaults to 13.
+        log_revenue_max (int, optional): Maximum threshold for 'Log Revenue'. Defaults to 13.
         html_output_path (str, optional): Path to save the HTML file. Defaults to 'plots_site/movie_revenue_distribution.html'.
         png_output_path (str, optional): Path to save the PNG image. Defaults to 'plots_site/movie_revenue_distribution.png'.
 
@@ -336,9 +336,9 @@ def movie_revenue_distribution_plot(data, revenue_max=500_000_000, log_revenue_m
     # Add the Log Movie Box Office Revenue histogram
     fig.add_trace(
         go.Histogram(
-            x=data['Log revenue'][data['Log revenue'] <= log_revenue_max],
+            x=data['Log Revenue'][data['Log Revenue'] <= log_revenue_max],
             nbinsx=50,
-            name='Log revenue',
+            name='Log Revenue',
             marker=dict(color='darkblue', opacity=0.7)
         ),
         row=2, col=1
@@ -363,7 +363,6 @@ def movie_revenue_distribution_plot(data, revenue_max=500_000_000, log_revenue_m
     # Save the figure as an image and an HTML file
     pio.write_html(fig, file=html_output_path, auto_open=False, include_plotlyjs='cdn')
     pio.write_image(fig, file=png_output_path, format='png', scale=2)
-    print(f"Plot saved as '{html_output_path}' and '{png_output_path}'")
     return fig 
 
 def movie_score_distribution_plot(data, score_max=10, 
