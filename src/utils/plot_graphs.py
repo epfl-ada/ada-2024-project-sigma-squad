@@ -193,12 +193,12 @@ def plot_ethnicity_distribution(df, ethnicity_column='Ethnicity'):
     ethnicity_counts = df[ethnicity_column].value_counts()
 
     # Set the color palette
-    color_palette = sns.color_palette("muted")
+    color_palette = sns.color_palette("muted", n_colors=len(ethnicity_counts))
 
     # Create the bar plot
     plt.figure(figsize=(12, 6))
-    sns.barplot(x=ethnicity_counts.index, y=ethnicity_counts.values, palette=color_palette)
-
+    sns.barplot(x=ethnicity_counts.index, y=ethnicity_counts.values, palette=color_palette, hue=ethnicity_counts.index, dodge=False, legend=False)
+    
     # Set the title and labels
     plt.title('Ethnicity Distribution', fontsize=18, weight='bold')
     plt.xlabel('Ethnicity', fontsize=16)
