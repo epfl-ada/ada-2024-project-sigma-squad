@@ -22,7 +22,7 @@ def display_correlation(df, plot=False):
     plt.figure(figsize=(10, 8))
     sns.heatmap(corr, annot=True, cmap='coolwarm')
     plt.show()
-    return plt
+    return 
 
 def ethnicity_to_group(df):
     """
