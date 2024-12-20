@@ -74,7 +74,7 @@ Using this enriched and cleaned dataset, we analyzed the correlations between va
 
 ## Project Structure
 
-```
+```bash
 ├── data                        <- Project datasets
 │   └── ...
 │
