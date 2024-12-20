@@ -419,3 +419,25 @@ def movie_score_distribution_plot(data, score_max=10,
     pio.write_image(fig, file=png_output_path, format='png', scale=2)
     
     return fig 
+
+
+
+def plot_movie_review_distribution(df):
+    fig = go.Figure(
+        data=go.Histogram(
+            x=df['Review score'],
+            nbinsx=100,  
+            marker=dict(color="#B22222", opacity=0.75), 
+        )
+    )
+
+    fig.update_layout(
+        title="Distribution of movies reviews",
+        xaxis=dict(title="Movie reviews"),
+        yaxis=dict(title="Frequency"),
+        height=500,
+        width=800
+    )
+
+    fig.write_html('plots_site/movie_score_distribution.html')
+    return fig
