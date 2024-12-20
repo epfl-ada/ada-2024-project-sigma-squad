@@ -228,7 +228,7 @@ def plot_ethnicity_distribution(df, ethnicity_column='Ethnicity'):
     plt.show()
 
 
-def revenue_budget_histograms(data, revenue_budget_max=200, log_revenue_budget_max=13, 
+def profitability_histograms(data, revenue_budget_max=200, log_revenue_budget_max=13, 
                                      output_image_path="plots_site/responsive_histograms.png", 
                                      output_html_path="plots_site/responsive_graph.html"):
     """
