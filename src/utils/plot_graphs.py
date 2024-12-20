@@ -435,8 +435,10 @@ def plot_movie_review_distribution(df):
         title="Distribution of movies reviews",
         xaxis=dict(title="Movie reviews"),
         yaxis=dict(title="Frequency"),
-        height=500,
-        width=800
+        height=400,  # Adjust height to a smaller value
+        width=850,   # Adjust width for better scaling
+        showlegend=False,
+        margin=dict(l=50, r=50, t=80, b=50)
     )
 
     fig.write_html('plots_site/movie_reviews_distribution.html')
