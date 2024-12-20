@@ -276,9 +276,9 @@ def revenue_budget_histograms(data, revenue_budget_max=200, log_revenue_budget_m
     )
 
     fig.update_layout(
-        title="Distribution of Revenue/Budget and Log Profitabilitys",
-        xaxis=dict(title="Profitability"),
-        xaxis2=dict(title="Log Profitability"),
+        title="Distribution of Profitability and Log Profitability",
+        xaxis=dict(title="Profitability [-]"),
+        xaxis2=dict(title="Log Profitability [-]"),
         yaxis=dict(title="Frequency"),
         yaxis2=dict(title="Frequency"),
         height=400,  # Adjust height to a smaller value
@@ -328,7 +328,7 @@ def movie_revenue_distribution_plot(data, revenue_max=500_000_000, log_revenue_m
             x=data['Movie box office revenue'][data['Movie box office revenue'] <= revenue_max],
             nbinsx=100,
             name='Movie box office revenue',
-            marker=dict(color='blue', opacity=0.7)
+            marker=dict(color='white', opacity=0.7)
         ),
         row=1, col=1
     )
@@ -339,15 +339,15 @@ def movie_revenue_distribution_plot(data, revenue_max=500_000_000, log_revenue_m
             x=data['Log Revenue'][data['Log Revenue'] <= log_revenue_max],
             nbinsx=50,
             name='Log Revenue',
-            marker=dict(color='darkblue', opacity=0.7)
+            marker=dict(color='whitesmoke', opacity=0.7)
         ),
         row=2, col=1
     )
 
     # Update layout
     fig.update_layout(
-        title="Distribution of Movie Box Office Revenue and Log Revenue",
-        xaxis=dict(title="Movie Box Office Revenue"),
+        title="Distribution of Box Office Revenue and Log Revenue",
+        xaxis=dict(title="Box Office Revenue [USD (millions)]"),
         xaxis2=dict(title="Log Revenue"),
         yaxis=dict(title="Frequency"),
         yaxis2=dict(title="Frequency"),
@@ -381,11 +381,11 @@ def movie_score_distribution_plot(data, score_max=10,
         None
     """
     # Check for the 'Movie score' column
-    if 'Movie score' not in data.columns:
+    if 'Movie Success Index' not in data.columns:
         raise ValueError("Dataset must contain a 'Movie score' column.")
 
     # Drop NaN values and filter invalid data
-    filtered_scores = data['Movie score'].dropna()
+    filtered_scores = data['Movie Success Index'].dropna()
     filtered_scores = filtered_scores[filtered_scores <= score_max]
 
     # Create the histogram
@@ -395,7 +395,7 @@ def movie_score_distribution_plot(data, score_max=10,
         go.Histogram(
             x=filtered_scores,
             nbinsx=100,  # Number of bins
-            name='Movie score',
+            name='Movie Success Index',
             marker=dict(color='teal', opacity=0.7)
         )
     )
