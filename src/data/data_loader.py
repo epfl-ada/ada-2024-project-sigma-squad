@@ -112,6 +112,9 @@ def load_actor_data_for_analysis():
 
     return actor_df
 
+def load_data_movies_for_plot(): 
+    return pd.read_csv('data/movie+character_merged.csv') 
+
 
 if __name__ == "__main__":
     print(load_oscars_data().head())
@@ -119,3 +122,4 @@ if __name__ == "__main__":
     print(load_movie_stats().head())
     print()
     print(load_original_data().head())
+    

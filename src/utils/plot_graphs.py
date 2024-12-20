@@ -1,6 +1,11 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+import plotly.io as pio 
+
+
 
 def hist_std_config(df, column_name):
     '''Easy plotting of different histograms with KDE for different columns of a DataFrame'''
@@ -78,21 +83,32 @@ def bar_plot_available_data(df):
 
     labels = ['Revenue', 'Budget', 'Votes', 'Score', 'Nominations', 'All except nominations', 'All info']
     values = [n_revenue, n_budget, n_votes, n_score, n_nomination, n_no_nomin, n_all_info]
+    fig = go.Figure(
+        data=[
+            go.Bar(
+                x=labels,
+                y=values,
+                text=values,
+                textposition='auto',
+               marker_color = ['#D9534F', '#C0392B', '#A93226', '#922B21', '#7B241C', '#641E16', '#512E2C']
+            )
+        ]
+    )
 
-    plt.figure(figsize=(12, 6))
-    bars = plt.bar(labels, values, color=['#FAD0C9', '#F8A5B1', '#FDCB82', '#E17055', '#D35400', '#F39C12', '#F1C40F'])
+    fig.update_layout(
+        title='Fig. 1: Number of movies with required information',
+        xaxis_title='',
+        yaxis_title='Number of Movies',
+        plot_bgcolor='rgba(0,0,0,0)',
+        title_font=dict(size=18, color='#333333'),
+        xaxis=dict(title_font=dict(size=14, color='#333333')),
+        yaxis=dict(title_font=dict(size=14, color='#333333'), gridcolor='lightgray')
+    )
 
-    plt.title('Number of movies with required information', fontsize=18, fontweight='normal', color='#333333')  # Indigo color
-    plt.ylabel('Number of Movies', fontsize=14, color='#333333')  # Dark gray for axis label
-    plt.grid(axis='y', linestyle='--', alpha=0.6)
+    pio.write_html(fig, file="plots_site/movie_score_distribution.html", auto_open=False, include_plotlyjs='cdn')
+    pio.write_image(fig, file="plots_site/movie_score_distribution.png", format='png', scale=2)
 
-    for bar in bars:
-        yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2, yval + 2, int(yval), ha='center', va='bottom', fontsize=12)
-
-    plt.tight_layout()
-    plt.show
-    return
+    return fig
 
 
 def top5_best(df): 
@@ -210,3 +226,197 @@ def plot_ethnicity_distribution(df, ethnicity_column='Ethnicity'):
     # Show the plot
     plt.tight_layout()
     plt.show()
+
+
+def revenue_budget_histograms(data, revenue_budget_max=200, log_revenue_budget_max=13, 
+                                     output_image_path="plots_site/responsive_histograms.png", 
+                                     output_html_path="plots_site/responsive_graph.html"):
+    """
+    Create histograms for Revenue/Budget Ratio and Log Revenue/Budget Ratio distributions.
+
+    Parameters:
+        data (DataFrame): Input data containing 'Revenue/Budget ratio' and 'Log Revenue/Budget ratio' columns.
+        revenue_budget_max (int, optional): Maximum value for filtering 'Revenue/Budget ratio'. Defaults to 200.
+        log_revenue_budget_max (int, optional): Maximum value for filtering 'Log Revenue/Budget ratio'. Defaults to 13.
+        output_image_path (str, optional): Path to save the resulting PNG image. Defaults to 'plots_site/responsive_histograms.png'.
+        output_html_path (str, optional): Path to save the resulting HTML file. Defaults to 'plots_site/responsive_graph.html'.
+
+    Returns:
+        None
+    """
+
+    fig = make_subplots(
+        rows=2, cols=1,
+        shared_xaxes=False,
+        vertical_spacing=0.3,
+        subplot_titles=(
+            "Revenue/Budget Ratio Distribution", 
+            "Log Revenue/Budget Ratio Distribution"
+        )
+    )
+
+    fig.add_trace(
+        go.Histogram(
+            x=data['Revenue/Budget ratio'][data['Revenue/Budget ratio'] <= revenue_budget_max],
+            nbinsx=200,
+            name='Revenue/Budget ratio',
+            marker=dict(color='orange', opacity=0.7)
+        ),
+        row=1, col=1
+    )
+
+    fig.add_trace(
+        go.Histogram(
+            x=data['Log Revenue/Budget ratio'][data['Log Revenue/Budget ratio'] <= log_revenue_budget_max],
+            nbinsx=50,
+            name='Log Revenue/Budget ratio',
+            marker=dict(color='darkorange', opacity=0.7)
+        ),
+        row=2, col=1
+    )
+
+    fig.update_layout(
+        title="Distribution of Revenue/Budget and Log Revenue/Budget Ratios",
+        xaxis=dict(title="Revenue/Budget Ratio"),
+        xaxis2=dict(title="Log Revenue/Budget Ratio"),
+        yaxis=dict(title="Frequency"),
+        yaxis2=dict(title="Frequency"),
+        height=400,  # Adjust height to a smaller value
+        width=850,   # Adjust width for better scaling
+        showlegend=False,
+        margin=dict(l=50, r=50, t=80, b=50)
+    )
+
+
+
+    pio.write_image(fig, file=output_image_path, format='png', scale=2)
+    pio.write_html(fig, file=output_html_path, auto_open=False, include_plotlyjs='cdn')
+    return fig
+
+
+
+def movie_revenue_distribution_plot(data, revenue_max=500_000_000, log_revenue_max=13,
+                                           html_output_path="plots_site/movie_revenue_distribution.html",
+                                           png_output_path="plots_site/movie_revenue_distribution.png"):
+    """
+    Create histograms for Movie Box Office Revenue and Log Revenue distributions.
+
+    Parameters:
+        data (DataFrame): Input data containing 'Movie box office revenue' and 'Log revenue' columns.
+        revenue_max (int, optional): Maximum threshold for 'Movie box office revenue'. Defaults to 500,000,000.
+        log_revenue_max (int, optional): Maximum threshold for 'Log revenue'. Defaults to 13.
+        html_output_path (str, optional): Path to save the HTML file. Defaults to 'plots_site/movie_revenue_distribution.html'.
+        png_output_path (str, optional): Path to save the PNG image. Defaults to 'plots_site/movie_revenue_distribution.png'.
+
+    Returns:
+        None
+    """
+    # Create subplots
+    fig = make_subplots(
+        rows=2, cols=1,
+        shared_xaxes=False,
+        vertical_spacing=0.3,
+        subplot_titles=(
+            "Movie Box Office Revenue Distribution", 
+            "Log Movie Box Office Revenue Distribution"
+        )
+    )
+
+    # Add the Movie Box Office Revenue histogram
+    fig.add_trace(
+        go.Histogram(
+            x=data['Movie box office revenue'][data['Movie box office revenue'] <= revenue_max],
+            nbinsx=100,
+            name='Movie box office revenue',
+            marker=dict(color='blue', opacity=0.7)
+        ),
+        row=1, col=1
+    )
+
+    # Add the Log Movie Box Office Revenue histogram
+    fig.add_trace(
+        go.Histogram(
+            x=data['Log revenue'][data['Log revenue'] <= log_revenue_max],
+            nbinsx=50,
+            name='Log revenue',
+            marker=dict(color='darkblue', opacity=0.7)
+        ),
+        row=2, col=1
+    )
+
+    # Update layout
+    fig.update_layout(
+        title="Distribution of Movie Box Office Revenue and Log Revenue",
+        xaxis=dict(title="Movie Box Office Revenue"),
+        xaxis2=dict(title="Log Revenue"),
+        yaxis=dict(title="Frequency"),
+        yaxis2=dict(title="Frequency"),
+        height=400,  # Adjust height to a smaller value
+        width=850,   # Adjust width for better scaling
+        showlegend=False,
+        margin=dict(l=50, r=50, t=80, b=50)
+    )
+
+    # Show the figure
+
+
+    # Save the figure as an image and an HTML file
+    pio.write_html(fig, file=html_output_path, auto_open=False, include_plotlyjs='cdn')
+    pio.write_image(fig, file=png_output_path, format='png', scale=2)
+    print(f"Plot saved as '{html_output_path}' and '{png_output_path}'")
+    return fig 
+
+def movie_score_distribution_plot(data, score_max=10, 
+                                         html_output_path="plots_site/movie_score_distribution.html", 
+                                         png_output_path="plots_site/movie_score_distribution.png"):
+    """
+    Create a histogram for the distribution of movie scores.
+
+    Parameters:
+        data (DataFrame): Input data containing the 'Movie score' column.
+        score_max (int, optional): Maximum threshold for movie scores. Defaults to 10.
+        html_output_path (str, optional): Path to save the HTML file. Defaults to 'plots_site/movie_score_distribution.html'.
+        png_output_path (str, optional): Path to save the PNG image. Defaults to 'plots_site/movie_score_distribution.png'.
+
+    Returns:
+        None
+    """
+    # Check for the 'Movie score' column
+    if 'Movie score' not in data.columns:
+        raise ValueError("Dataset must contain a 'Movie score' column.")
+
+    # Drop NaN values and filter invalid data
+    filtered_scores = data['Movie score'].dropna()
+    filtered_scores = filtered_scores[filtered_scores <= score_max]
+
+    # Create the histogram
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Histogram(
+            x=filtered_scores,
+            nbinsx=100,  # Number of bins
+            name='Movie score',
+            marker=dict(color='teal', opacity=0.7)
+        )
+    )
+
+    # Update layout
+    fig.update_layout(
+        title="Distribution of Movie Scores",
+        xaxis=dict(title="Movie Score"),
+        yaxis=dict(title="Frequency"),
+        height=300,
+        width=850,
+        showlegend=False,
+        margin=dict(l=50, r=50, t=80, b=50)
+    )
+
+    # Show the figure
+    fig.show()
+
+    # Save the figure as an HTML file and an image
+    pio.write_html(fig, file=html_output_path, auto_open=False, include_plotlyjs='cdn')
+    pio.write_image(fig, file=png_output_path, format='png', scale=2)
+    print(f"Plot saved as '{html_output_path}' and '{png_output_path}'")
+    return fig 
