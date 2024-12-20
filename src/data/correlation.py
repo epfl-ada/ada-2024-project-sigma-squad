@@ -17,12 +17,12 @@ def display_correlation(df, plot=False):
     Calculate and display the correlation of all features with the 'Success Score' in the given DataFrame.
     """
     numeric_df = df.select_dtypes(include=[np.number])
-
-    corr = numeric_df.corr()
-    plt.figure(figsize=(10, 8))
-    sns.heatmap(corr, annot=True, cmap='coolwarm')
-    plt.show()
-    return 
+    ## Correlation of Sucess score with other features
+    corr = df.corr()
+    corr_success = corr['Success Score']
+    corr_success = corr_success.sort_values(ascending=False)
+    corr_success = corr_success.drop('Success Score')
+    return corr_success
 
 def ethnicity_to_group(df):
     """
