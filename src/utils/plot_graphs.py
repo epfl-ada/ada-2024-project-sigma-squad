@@ -7,40 +7,26 @@ import plotly.io as pio
 
 
 
-def hist_std_config(df, column_name):
-    '''Easy plotting of different histograms with KDE for different columns of a DataFrame'''
-    
-    color_palette = ['#FAD0C9', '#F8A5B1', '#FDCB82', '#E17055', '#D35400', '#F39C12', '#F1C40F']
-    
-    sns.set_palette("muted")  
-    plt.figure(figsize=(12, 6))
-    
-    plt.hist(df[column_name], bins=20, edgecolor='gray', alpha=0.6, density=True, color=color_palette[2])
-    sns.kdeplot(data=df, x=column_name, color=color_palette[4], linewidth=2.5)
-    
-    plt.title(f'{column_name} Distribution', fontsize=18, weight='bold')
-    plt.xlabel(column_name, fontsize=16)
-    plt.ylabel('Density', fontsize=16)
-    
-    if column_name == 'Profitability score':
+def hist_std_config(df, column_name, title, nbins=50, color="#3498DB", range_x=None):
+    fig = go.Figure(
+        data=go.Histogram(
+            x=df[column_name],
+            nbinsx=nbins,
+            marker=dict(color=color),
+        )
+    )
 
-        break_even_point = 10 * (0 - df['Log Profitability'].min()) / (df['Log Profitability'].max() - df['Log Profitability'].min())
-       
+    fig.update_layout(
+        title=title,
+        xaxis=dict(title=column_name, range=range_x),
+        yaxis=dict(title="Frequency"),
         
-        plt.axvline(x=break_even_point, color='red', linestyle='--', label='Break-even Point')
-        plt.legend()
-        
-    if column_name == 'Nomination multiplier':
-        plt.xlim((1, 1.3))
-        plt.ylim((0, 4))
-    else:
-        plt.xlim((0, 10))
-    
-    plt.grid(axis='y', linestyle='--', alpha=0.5)
+        height=400,
+        width=850,
+        margin=dict(l=50, r=50, t=80, b=50)
+    )
 
-    plt.tight_layout()
-    plt.show()
-    return
+    return fig
 
 
 def hist_std_config_ax(df, column_name, ax):
@@ -156,52 +142,102 @@ def oscar_pie_chart(df):
 
 
 def actor_bar_plot(actor_df):
-    # Calculate the number of missing values for each column
+    """
+    Plot the number of missing values for selected actor attributes.
+    """
+    
     missing_values = actor_df.isna().sum().tolist()
+
     
     labels = ['Date of Birth', 'Gender', 'Height', 'Ethnicity', 'Age at First Movie Release']
-    values = missing_values[:-1] # Exclude the 'Actor Score Index' column
+    values = missing_values[:len(labels)]  # Select only the relevant attributes
 
-    plt.figure(figsize=(12, 6))
-    bars = plt.bar(labels, values, color=['#FAD0C9', '#F8A5B1', '#FDCB82', '#E17055', '#D35400'])
+    fig = go.Figure(
+        data=go.Bar(
+            x=labels,
+            y=values,
+            text=values,
+            textposition='auto',
+            marker=dict(
+                color=['#FAD0C9', '#F8A5B1', '#FDCB82', '#E17055', '#D35400']
+            )
+        )
+    )
 
-    plt.title('Missing Values per Attribute', fontsize=18, fontweight='normal', color='#333333')  # Indigo color
-    plt.ylabel('Number of Missing Values', fontsize=14, color='#333333')  # Dark gray for axis label
-    plt.grid(axis='y', linestyle='--', alpha=0.6)
+    fig.update_layout(
+        title="Missing Values per Attribute",
+        xaxis=dict(title="Attributes"),
+        yaxis=dict(title="Number of Missing Values"),
+        
+        height=400,
+        width=850,
+        margin=dict(l=50, r=50, t=80, b=50),
+        showlegend=False
+    )
 
-    for bar in bars:
-        yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width() / 2, yval + 2, int(yval), ha='center', va='bottom', fontsize=12)
-    
-    # Show the plot
-    plt.tight_layout()
-    plt.show()
-    return
+    return fig
+
 
 
 def actor_index_distribution(actor_df):
-
-    print('The left plot shows the Actor Score Index across all actors.')
-    print('The right plot shows the Actor Score Index across actors with known heights.')
+    """
+    Plot the Actor Score Index distribution for all actors and actors with known heights using Plotly.
+    """
     
-    filtered_actor = actor_df.dropna(subset='Actor height').copy()
+    filtered_actor = actor_df.dropna(subset=['Actor height'])
 
-    fig, axes = plt.subplots(1, 2, figsize=(20, 6))
-    hist_std_config_ax(actor_df, 'Actor Score Index', axes[0])
-    hist_std_config_ax(filtered_actor, 'Actor Score Index', axes[1])
-
-    plt.tight_layout()
-    plt.show()
-
-    # Calculate mean and standard deviation
+    # Calculate mean and standard deviation for both datasets
     stats = {
         'Dataset': ['All Actors', 'Actors with Known Heights'],
         'Mean': [actor_df['Actor Score Index'].mean(), filtered_actor['Actor Score Index'].mean()],
         'Standard Deviation': [actor_df['Actor Score Index'].std(), filtered_actor['Actor Score Index'].std()]
     }
     stats_df = pd.DataFrame(stats).set_index('Dataset')
-    
-    return stats_df.head()
+
+  
+    fig = make_subplots(
+        rows=1, cols=2,
+        subplot_titles=("All Actors", "Actors with Known Heights"),
+        shared_yaxes=True
+    )
+
+   
+    fig.add_trace(
+        go.Histogram(
+            x=actor_df['Actor Score Index'],
+            nbinsx=50,
+            name='All Actors',
+            marker=dict(color='blue', opacity=0.7)
+        ),
+        row=1, col=1
+    )
+
+
+    fig.add_trace(
+        go.Histogram(
+            x=filtered_actor['Actor Score Index'],
+            nbinsx=50,
+            name='Actors with Known Heights',
+            marker=dict(color='green', opacity=0.7)
+        ),
+        row=1, col=2
+    )
+
+
+    fig.update_layout(
+        title="Actor Score Index Distribution",
+        xaxis=dict(title="Actor Score Index", range=[0, 10]),
+        xaxis2=dict(title="Actor Score Index", range=[0, 10]),
+        yaxis=dict(title="Frequency"),
+        
+        height=400,
+        width=900,
+        margin=dict(l=50, r=50, t=80, b=50),
+        showlegend=False
+    )
+    fig.show()
+    return stats_df
+
 
 
 def plot_ethnicity_distribution(df, ethnicity_column='Ethnicity'):
@@ -328,7 +364,7 @@ def movie_revenue_distribution_plot(data, revenue_max=500_000_000, log_revenue_m
             x=data['Movie box office revenue'][data['Movie box office revenue'] <= revenue_max],
             nbinsx=100,
             name='Movie box office revenue',
-            marker=dict(color='white', opacity=0.7)
+            marker=dict(color='gray', opacity=0.7)
         ),
         row=1, col=1
     )
@@ -339,7 +375,7 @@ def movie_revenue_distribution_plot(data, revenue_max=500_000_000, log_revenue_m
             x=data['Log Revenue'][data['Log Revenue'] <= log_revenue_max],
             nbinsx=50,
             name='Log Revenue',
-            marker=dict(color='whitesmoke', opacity=0.7)
+            marker=dict(color='black', opacity=0.7)
         ),
         row=2, col=1
     )
