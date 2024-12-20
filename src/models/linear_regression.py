@@ -43,6 +43,20 @@ def train_linear_regression():
 
 def predict_success(model, new_data):
     df = pd.read_csv('actor_data_for_regression.csv')
+    df = ethnicity_to_group(df)
+    df = df.drop(['Actor name', 'Usable Uni Rank', 'Citizenship', 'QS University Rank', 'Birth City', 'University', ],
+                 axis=1)
+
+    # One-hot encode categorical variables
+    df = pd.get_dummies(df, columns=['Gender', 'Birth Region', 'Ethnicity', 'Sports', 'Birth Month'])
+    df.dropna(inplace=True)
+
+    # Define features and target variable
+    X = df.drop(columns=['Success Score'])
+    y = df['Success Score']
+
+    # Split the data into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Convert new data to DataFrame
     new_df = pd.DataFrame(new_data)
@@ -51,7 +65,8 @@ def predict_success(model, new_data):
     new_df = pd.get_dummies(new_df, columns=['Gender', 'Birth Region', 'Ethnicity', 'Sports', 'Birth Month'])
 
     # Align new data with training data columns
-    new_df, _ = new_df.align(df.drop(columns=['Success Score']), join='right', axis=1, fill_value=0)
+
+    new_df = new_df.reindex(columns=X_train.columns, fill_value=0)
 
     # Make prediction
     new_prediction = model.predict(new_df)
