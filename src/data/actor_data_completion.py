@@ -1,5 +1,6 @@
 import pandas as pd
 from ..engines import converter, university_matcher, spider
+from src.constants import REGION_LIST
 from tqdm import tqdm
 
 
@@ -96,50 +97,11 @@ def groupby_region(actor_df):
     actor_df: The DataFrame containing the actor data.
     """
 
-    region_list = [('US', 'USA'),
-        ('United States', 'USA'),
-        ('Texas', 'USA'),
-        ('South Carolina', 'USA'),
-        ('Michigan', 'USA'),
-        ('Illinois', 'USA'),
-        ('Alabama', 'USA'),
-        ('Los Angeles', 'USA'),
-        ('Indianapolis', 'USA'),
-        ('New York', 'USA'),
-        ('Virginia', 'USA'),
-        ('New Jersey', 'USA'),
-        ('Brooklyn', 'USA'),
-        ('Tennessee', 'USA'),
-        ('Pennsylvania', 'USA'),
-        ('Chicago', 'USA'),
-        ('Nebraska', 'USA'),
-        ('Florida', 'USA'),
-        ('Ohio', 'USA'),
-        ('Scotland', 'United Kingdom'),
-        ('England', 'United Kingdom'),
-        ('Wales', 'United Kingdom'),
-        ('Ireland', 'United Kingdom'),
-        ('Berkshire', 'United Kingdom'),
-        ('Frankfurt', 'Europe'),
-        ('Germany', 'Europe'),
-        ('Spain', 'Europe'),
-        ('Netherlands', 'Europe'),
-        ('Amsterdam', 'Europe'),
-        ('France', 'Europe'),
-        ('Iceland', 'Europe'),
-        ('Italy', 'Europe'),
-        ('Bulgaria', 'Europe'),
-        ('Sweden', 'Europe'),
-        ('Bosnia', 'Europe'),
-        ('Croatia', 'Europe'),
-        ('Denmark', 'Europe'),
-        ('Slovakia', 'Europe'),]
-    
     regions = ['USA', 'United Kingdom', 'Europe', 'nan']
 
     actor_df['Birth Region'] = actor_df['Birth City'].astype(str)
 
-    for birth_city, region in region_list:
+    for birth_city, region in REGION_LIST:
         actor_df.loc[actor_df['Birth Region'].str.contains(birth_city, case=False), 'Birth Region'] = region
 
     actor_df['Birth Region'] = actor_df['Birth Region'].apply(lambda x: x if x in regions else 'Rest of World')

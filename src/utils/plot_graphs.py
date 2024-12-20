@@ -1,10 +1,9 @@
+import plotly.graph_objects as go
 import matplotlib.pyplot as plt
+import plotly.io as pio 
 import seaborn as sns
 import pandas as pd
-import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import plotly.io as pio 
-
 
 
 def hist_std_config(df, column_name):
@@ -49,7 +48,7 @@ def hist_std_config_ax(df, column_name, ax):
     
     sns.set_palette("muted")
     
-    ax.hist(df[column_name], bins=20, edgecolor='gray', alpha=0.6, density=True, color=color_palette[2])
+    ax.hist(df[column_name], bins=50, edgecolor='gray', alpha=0.6, density=True, color=color_palette[2])
     sns.kdeplot(data=df, x=column_name, color=color_palette[4], linewidth=2.5, ax=ax)
     
     ax.set_title(f'{column_name} Distribution', fontsize=18, weight='bold')
@@ -71,7 +70,7 @@ def hist_std_config_ax(df, column_name, ax):
     return
 
 
-def bar_plot_available_data(df): 
+def bar_plot_available_data(df):
     n_revenue = int(df['Movie box office revenue'].count())
     n_budget = int(df['Movie budget'].count())
     n_votes = int(df['Movie votes'].count())
@@ -83,32 +82,18 @@ def bar_plot_available_data(df):
 
     labels = ['Revenue', 'Budget', 'Votes', 'Score', 'Nominations', 'All except nominations', 'All info']
     values = [n_revenue, n_budget, n_votes, n_score, n_nomination, n_no_nomin, n_all_info]
-    fig = go.Figure(
-        data=[
-            go.Bar(
-                x=labels,
-                y=values,
-                text=values,
-                textposition='auto',
-               marker_color = ['#D9534F', '#C0392B', '#A93226', '#922B21', '#7B241C', '#641E16', '#512E2C']
-            )
-        ]
-    )
 
-    fig.update_layout(
-        title='Fig. 1: Number of movies with required information',
-        xaxis_title='',
-        yaxis_title='Number of Movies',
-        plot_bgcolor='rgba(0,0,0,0)',
-        title_font=dict(size=18, color='#FFFFFF'),
-        xaxis=dict(title_font=dict(size=14, color='#FFFFFF')),
-        yaxis=dict(title_font=dict(size=14, color='#FFFFFF'), gridcolor='lightgray')
-    )
+    plt.figure(figsize=(12, 6))
+    bars = plt.bar(labels, values, color=['#D9534F', '#C0392B', '#A93226', '#922B21', '#7B241C', '#641E16', '#512E2C'])
 
-    pio.write_html(fig, file="plots_site/available_data.html", auto_open=False, include_plotlyjs='cdn')
-    pio.write_image(fig, file="plots_site/available_data.png", format='png', scale=2)
+    plt.title('Number of Movies with Required Information', fontsize=18, weight='bold')
+    plt.ylabel('Number of Movies', fontsize=14)
+    plt.xticks(rotation=45)
+    for bar, value in zip(bars, values):
+        plt.text(bar.get_x() + bar.get_width() / 2, value, str(value), ha='center', va='bottom', fontsize=12)
+    plt.tight_layout()
+    plt.show()
 
-    return fig
 
 
 def top5_best(df): 
@@ -161,14 +146,11 @@ def actor_bar_plot(actor_df):
     
     labels = ['Date of Birth', 'Gender', 'Height', 'Ethnicity', 'Age at First Movie Release']
     values = missing_values[:-1] # Exclude the 'Actor Score Index' column
-
     plt.figure(figsize=(12, 6))
     bars = plt.bar(labels, values, color=['#FAD0C9', '#F8A5B1', '#FDCB82', '#E17055', '#D35400'])
-
     plt.title('Missing Values per Attribute', fontsize=18, fontweight='normal', color='#333333')  # Indigo color
     plt.ylabel('Number of Missing Values', fontsize=14, color='#333333')  # Dark gray for axis label
     plt.grid(axis='y', linestyle='--', alpha=0.6)
-
     for bar in bars:
         yval = bar.get_height()
         plt.text(bar.get_x() + bar.get_width() / 2, yval + 2, int(yval), ha='center', va='bottom', fontsize=12)
@@ -177,6 +159,7 @@ def actor_bar_plot(actor_df):
     plt.tight_layout()
     plt.show()
     return
+
 
 
 def actor_index_distribution(actor_df):
@@ -202,6 +185,7 @@ def actor_index_distribution(actor_df):
     stats_df = pd.DataFrame(stats).set_index('Dataset')
     
     return stats_df.head()
+
 
 
 def plot_ethnicity_distribution(df, ethnicity_column='Ethnicity'):
@@ -328,7 +312,7 @@ def movie_revenue_distribution_plot(data, revenue_max=500_000_000, log_revenue_m
             x=data['Movie box office revenue'][data['Movie box office revenue'] <= revenue_max],
             nbinsx=100,
             name='Movie box office revenue',
-            marker=dict(color='white', opacity=0.7)
+            marker=dict(color='gray', opacity=0.7)
         ),
         row=1, col=1
     )
@@ -339,7 +323,7 @@ def movie_revenue_distribution_plot(data, revenue_max=500_000_000, log_revenue_m
             x=data['Log Revenue'][data['Log Revenue'] <= log_revenue_max],
             nbinsx=50,
             name='Log Revenue',
-            marker=dict(color='whitesmoke', opacity=0.7)
+            marker=dict(color='black', opacity=0.7)
         ),
         row=2, col=1
     )
@@ -435,8 +419,10 @@ def plot_movie_review_distribution(df):
         title="Distribution of movies reviews",
         xaxis=dict(title="Movie reviews"),
         yaxis=dict(title="Frequency"),
-        height=500,
-        width=800
+        height=400,  # Adjust height to a smaller value
+        width=850,   # Adjust width for better scaling
+        showlegend=False,
+        margin=dict(l=50, r=50, t=80, b=50)
     )
 
     fig.write_html('plots_site/movie_reviews_distribution.html')

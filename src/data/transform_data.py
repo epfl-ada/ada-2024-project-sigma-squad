@@ -62,9 +62,14 @@ def raw_data():
 
 
 def clean_data(raw_data):
+    """
+    Cleans the raw movie data by dropping rows with missing values.
+
+    Returns:
+    pandas.DataFrame: Cleaned data
+    """
     # Drop rows with NA values in essential columns
     clean_data = raw_data.dropna(subset=['Movie box office revenue', 'Movie budget', 'Review score', 'Movie votes']).copy()
-
     return clean_data
 
 
@@ -94,8 +99,3 @@ def actor_data(clean_df):
     merged_df['Movie Count'] = merged_df.groupby('Actor name')['Movie name'].transform('count')
 
     return merged_df
-
-
-if __name__ == "__main__":
-    df = raw_data()
-    print(clean_data(df).head)
