@@ -1,6 +1,5 @@
 import numpy as np
 
-# Profitability factor:
 
 def profitability_factor(df):
     """
@@ -27,8 +26,6 @@ def profitability_factor(df):
     return 
 
 
-# Revenue factor:
-
 def revenue_factor(df):
     """
     Calculates the revenue factor for each movie in the DataFrame.
@@ -47,16 +44,12 @@ def revenue_factor(df):
     return 
 
 
-# Movie review factor:
-
 def review_factor(df):
     """
     Placeholder for the movie review score.
     """
     return 
 
-
-# Number of oscar nominations multiplication factor:
 
 def oscar_mult_factor(df):
     """
@@ -76,8 +69,6 @@ def oscar_mult_factor(df):
     
     return 
 
-
-# Success Index:
 
 def movie_success_index(df):
     """
@@ -119,5 +110,3 @@ def movie_success_index(df):
     ) / max_possible_score *10
 
     return 
-
-
