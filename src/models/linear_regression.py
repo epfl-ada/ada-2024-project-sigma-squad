@@ -3,11 +3,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 from src.data.correlation import ethnicity_to_group
+from src.data import load_actor_data_for_analysis
 
 
 def train_linear_regression():
     # Load data
-    df = pd.read_csv('actor_data_for_regression.csv')
+    df = load_actor_data_for_analysis()
     df = ethnicity_to_group(df)
     df = df.drop(['Actor name', 'Usable Uni Rank', 'Citizenship', 'QS University Rank', 'Birth City', 'University',], axis=1)
 
