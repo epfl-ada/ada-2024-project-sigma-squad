@@ -100,13 +100,13 @@ def bar_plot_available_data(df):
         xaxis_title='',
         yaxis_title='Number of Movies',
         plot_bgcolor='rgba(0,0,0,0)',
-        title_font=dict(size=18, color='#333333'),
-        xaxis=dict(title_font=dict(size=14, color='#333333')),
-        yaxis=dict(title_font=dict(size=14, color='#333333'), gridcolor='lightgray')
+        title_font=dict(size=18, color='#FFFFFF'),
+        xaxis=dict(title_font=dict(size=14, color='#FFFFFF')),
+        yaxis=dict(title_font=dict(size=14, color='#FFFFFF'), gridcolor='lightgray')
     )
 
-    pio.write_html(fig, file="plots_site/movie_score_distribution.html", auto_open=False, include_plotlyjs='cdn')
-    pio.write_image(fig, file="plots_site/movie_score_distribution.png", format='png', scale=2)
+    pio.write_html(fig, file="plots_site/available_data.html", auto_open=False, include_plotlyjs='cdn')
+    pio.write_image(fig, file="plots_site/available_data.png", format='png', scale=2)
 
     return fig
 
